@@ -1,2 +1,2 @@
-# frontend
-frontend de la aplicación Wallaclone
+# frontend-wallaclone
+Frontend de la aplicación Wallaclone
