@@ -1,0 +1,41 @@
+.card-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  width: 320px;
+  /* height 410px; */
+}
+
+#card-description {
+  height: 72px;
+}
+
+#item-no-material,
+.card-item {
+  margin-top: 30px;
+}
+
+.media {
+  height: 0;
+  padding-top: 56.25%;
+}
+
+#button-no-material,
+.button:disabled {
+  margin: 2px;
+  color: rgb(220, 0, 78);
+  border-color: rgb(220, 0, 78);
+}
+
+#avatar-no-material,
+.avatar {
+  background-color: #f44336;
+  margin-top: 0px;
+}
+
+#avatar-green-no-material,
+.avatar {
+  background-color: #19857b;
+}
