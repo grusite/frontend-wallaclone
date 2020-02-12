@@ -22,7 +22,7 @@ export const filterAdverts = async params => {
 };
 
 export const getTags = async () => {
-  let response = await fetch(`${API}/tags`, {
+  let response = await fetch(`${API}/anuncios/tags`, {
     method: 'GET'
   });
   let data = await response.json();

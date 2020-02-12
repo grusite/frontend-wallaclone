@@ -1,0 +1,9 @@
+{
+    "login": "Login",
+    "labelName": "Name",
+    "labelEmail": "email",
+    "labelPassword": "Password",
+    "labelConfirmPassword": "Confirm password",
+    "remindMe": "Quiero mantener mi sesión activa",
+    "statusMessage": "Por favor, rellene todos los campos"
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import { useTranslation } from 'react-i18next';
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -18,7 +19,7 @@ import MySnackbarContentWrapper from "../StatusMessages/StatusMessages";
 
 import Form, { Input } from "../Form";
 
-import "./register.css";
+import "./login.css";
 
 function Copyright() {
   return (
@@ -29,20 +30,20 @@ function Copyright() {
   );
 }
 
-export default function Register({ userLogin }) {
+export default function Login({ t, userLogin }) {
   const [statusMessage, setStatusMessage] = useState("");
 
   const handleSubmit = event => {
-    const { name, surname, tag, remindMe } = event;
-    if (name && surname && tag) {
-      userLogin(name, surname, tag, remindMe);
+    const { name, password, remindMe } = event;
+    if (name && password) {
+      userLogin(name, password, remindMe);
     } else {
       setStatusMessage(
         <MySnackbarContentWrapper
           onClose={handleClose}
           variant="warning"
           className="margin"
-          message="Por favor, rellene todos los campos"
+          message={t('statusMessage')}
         />
       );
     }
@@ -60,40 +61,39 @@ export default function Register({ userLogin }) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Registro
+        {t('login')}
         </Typography>
         <Form
           className="form"
           noValidate
           initialValue={{
             name: "",
-            surname: "",
-            tag: "",
+            password: "",
             remindMe: false
           }}
           onSubmit={handleSubmit}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <Input
                 name="name"
                 variant="outlined"
                 required
                 fullWidth
                 id="name"
-                label="Nombre"
+                label={t('labelName')}
                 autoFocus
                 component={TextField}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <Input
                 variant="outlined"
                 required
                 fullWidth
-                id="surname"
-                label="Apellido"
-                name="surname"
+                id="password"
+                label={t('labelPassword')}
+                name="password"
                 autoComplete="lname"
                 component={TextField}
               />
@@ -106,7 +106,7 @@ export default function Register({ userLogin }) {
                 type="checkbox"
                 name="remindMe"
                 control={<Checkbox value="remindMe" color="primary" />}
-                label="Quiero mantener mi sesión activa"
+                label={t('remindMe')}
                 component={FormControlLabel}
               />
             </Grid>
@@ -119,7 +119,7 @@ export default function Register({ userLogin }) {
             variant="contained"
             color="primary"
           >
-            Registrate
+            {t('login')}
           </Button>
         </Form>
       </div>
