@@ -29,20 +29,20 @@ function Copyright() {
   );
 }
 
-export default function Register({ userLogin }) {
+export default function Register({ t, userLogin }) {
   const [statusMessage, setStatusMessage] = useState("");
 
   const handleSubmit = event => {
-    const { name, surname, tag, remindMe } = event;
-    if (name && surname && tag) {
-      userLogin(name, surname, tag, remindMe);
+    const { name, email, password } = event;
+    if (name && email && password) {
+      userLogin(name, email, password);
     } else {
       setStatusMessage(
         <MySnackbarContentWrapper
           onClose={handleClose}
           variant="warning"
           className="margin"
-          message="Por favor, rellene todos los campos"
+          message={t('statusMessage')}
         />
       );
     }
@@ -60,55 +60,57 @@ export default function Register({ userLogin }) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Registro
+        {t('signUp')}
         </Typography>
         <Form
           className="form"
           noValidate
           initialValue={{
             name: "",
-            surname: "",
-            tag: "",
-            remindMe: false
+            email: "",
+            password: "",
           }}
           onSubmit={handleSubmit}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <Input
                 name="name"
                 variant="outlined"
                 required
                 fullWidth
                 id="name"
-                label="Nombre"
+                label={t('labelName')}
                 autoFocus
                 component={TextField}
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <Input
                 variant="outlined"
                 required
                 fullWidth
-                id="surname"
-                label="Apellido"
-                name="surname"
+                id="email"
+                label={t('labelEmail')}
+                name="email"
+                autoComplete="lname"
+                component={TextField}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Input
+                variant="outlined"
+                required
+                fullWidth
+                id="password"
+                label={t('labelPassword')}
+                name="password"
                 autoComplete="lname"
                 component={TextField}
               />
             </Grid>
             <Grid item xs={12}>
               {statusMessage}
-            </Grid>
-            <Grid item xs={12}>
-              <Input
-                type="checkbox"
-                name="remindMe"
-                control={<Checkbox value="remindMe" color="primary" />}
-                label="Quiero mantener mi sesión activa"
-                component={FormControlLabel}
-              />
             </Grid>
           </Grid>
           <Button
@@ -119,7 +121,7 @@ export default function Register({ userLogin }) {
             variant="contained"
             color="primary"
           >
-            Registrate
+            {t('register')}
           </Button>
         </Form>
       </div>

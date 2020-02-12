@@ -1,9 +1,12 @@
 {
+    "register": "Register",
+    "signUp": "Sign Up",
+    "logIn": "Log In",
     "login": "Login",
     "labelName": "Name",
-    "labelEmail": "email",
+    "labelEmail": "Email",
     "labelPassword": "Password",
     "labelConfirmPassword": "Confirm password",
-    "remindMe": "Quiero mantener mi sesión activa",
-    "statusMessage": "Por favor, rellene todos los campos"
+    "remindMe": "Keep me logged in",
+    "statusMessage": "Please, fill out all fields"
 }

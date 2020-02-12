@@ -7,11 +7,18 @@ import {
   createAd
 } from "../services/AdsAPIService";
 
-export const login = (name, surname, tag, remindMe) => ({
-  type: TYPES.LOGIN,
+export const signUp = (name, email, password ) => ({
+  type: TYPES.SIGNUP,
   name,
-  surname,
-  tag,
+  email,
+  password
+});
+
+
+export const login = (email, password, remindMe) => ({
+  type: TYPES.LOGIN,
+  email,
+  password,
   remindMe
 });
 
@@ -20,13 +27,21 @@ export const logout = () => ({
 });
 
 export const userLogin = (...args) => (dispatch, _getState, { history }) => {
+  // meter llamada API
   dispatch(login(...args));
   history.push("/");
 };
 
 export const userLogout = (...args) => (dispatch, _getState, { history }) => {
+  // meter llamada API
   dispatch(logout(...args));
   history.push("/register");
+};
+
+export const userSignUp = (...args) => (dispatch, _getState, { history }) => {
+  // meter llamada API
+  dispatch(signUp(...args));
+  history.push("/login");
 };
 
 export const loadTagsRequest = () => ({

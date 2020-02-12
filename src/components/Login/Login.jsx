@@ -12,9 +12,6 @@ import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import MySnackbarContentWrapper from "../StatusMessages/StatusMessages";
 
 import Form, { Input } from "../Form";
@@ -34,9 +31,9 @@ export default function Login({ t, userLogin }) {
   const [statusMessage, setStatusMessage] = useState("");
 
   const handleSubmit = event => {
-    const { name, password, remindMe } = event;
-    if (name && password) {
-      userLogin(name, password, remindMe);
+    const { email, password, remindMe } = event;
+    if (email && password) {
+      userLogin(email, password, remindMe);
     } else {
       setStatusMessage(
         <MySnackbarContentWrapper
@@ -61,7 +58,7 @@ export default function Login({ t, userLogin }) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-        {t('login')}
+        {t('logIn')}
         </Typography>
         <Form
           className="form"
@@ -76,12 +73,12 @@ export default function Login({ t, userLogin }) {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Input
-                name="name"
+                name="email"
                 variant="outlined"
                 required
                 fullWidth
-                id="name"
-                label={t('labelName')}
+                id="email"
+                label={t('labelEmail')}
                 autoFocus
                 component={TextField}
               />

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { getSession, getUser } from "../selectors";
-import { userLogin, userLogout } from "../actions/actions";
+import { userSignUp, userLogin, userLogout } from "../actions/actions";
 
 const mapStateToProps = state => ({
   ...state,
@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  userSignUp,
   userLogin,
   userLogout
 };
