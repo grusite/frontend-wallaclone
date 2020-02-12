@@ -1,18 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './i18n';
-import { createBrowserHistory } from "history";
-import { configureStore } from "./store";
-import storage from "./utils/storage";
-import { loadTags } from "./actions/actions";
-import * as TYPES from "./actions/actionTypes";
+import { createBrowserHistory } from 'history';
+import { configureStore } from './store';
+import storage from './utils/storage';
+import { loadTags } from './actions/actions';
+import * as TYPES from './actions/actionTypes';
 
 // import './index.css'
-import Root from "./components/Root";
-import * as serviceWorker from "./serviceWorker";
+import Root from './components/Root';
+import * as serviceWorker from './serviceWorker';
 
 const renderApp = props => {
-  ReactDOM.render(<Root {...props} />, document.getElementById("root"));
+  ReactDOM.render(<Root {...props} />, document.getElementById('root'));
 };
 
 // histórico del browser
@@ -20,7 +20,7 @@ const history = createBrowserHistory();
 
 // cargamos la session que hubiese en localStorage
 const { setItem, getItem } = storage();
-const session = JSON.parse(getItem("NodePop-User")) || undefined;
+const session = JSON.parse(getItem('Wallaclone-User')) || undefined;
 
 // configuramos un store, pasando los datos de la sesion como estado inicial
 const store = configureStore({
@@ -34,7 +34,7 @@ store.subscribe(() => {
   const { lastAction, user } = store.getState();
 
   if (lastAction.type === TYPES.LOGIN && lastAction.remindMe) {
-    setItem("NodePop-User", JSON.stringify(user));
+    setItem('Wallaclone-User', JSON.stringify(user));
   }
 
   if (lastAction.type === TYPES.LOGOUT) {
