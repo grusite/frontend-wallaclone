@@ -2,7 +2,7 @@ export const getUser = state => state.user;
 
 export const getAdverts = state => state.adverts;
 
-export const getSession = state => getUser(state).isLoggedIn;
+export const getSession = state => getUser(state);
 
 export const isUserRegistered = state => {
   const session = getSession(state);

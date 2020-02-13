@@ -4,8 +4,8 @@ import './i18n';
 import { createBrowserHistory } from 'history';
 import { configureStore } from './store';
 import storage from './utils/storage';
-import { loadTags } from './actions/actions';
-import * as TYPES from './actions/actionTypes';
+// import { loadTags } from './store/actions/actions';
+import * as TYPES from './store/actions/actionTypes';
 
 // import './index.css'
 import Root from './components/Root';
@@ -33,7 +33,7 @@ const store = configureStore({
 store.subscribe(() => {
   const { lastAction, user } = store.getState();
 
-  if (lastAction.type === TYPES.LOGIN && lastAction.remindMe) {
+  if (lastAction.type === TYPES.SAVE_SESSION && lastAction.remindMe) {
     setItem('Wallaclone-User', JSON.stringify(user));
   }
 
@@ -41,13 +41,13 @@ store.subscribe(() => {
     localStorage.clear();
   }
   // cuando tengamos las tags en el store, renderizamos la app
-  if (lastAction.type === TYPES.TAGS_LOAD_SUCCESFULL) {
+  if (lastAction.type === TYPES.TAGS_LOAD_SUCCESS) {
     renderApp({ store, history });
   }
 });
 
 // lanzamos una accion inicial para cargar las tags
-store.dispatch(loadTags());
+// store.dispatch(loadTags());
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,28 +1,23 @@
-import { SIGNUP, LOGIN, LOGOUT } from "../actions/actionTypes";
+import { SAVE_SESSION, GET_USER, LOGOUT } from '../actions/actionTypes';
 
 const defaultState = {
+  // TODO borrar
   isLoggedIn: false,
-  name: "",
-  email: "",
-  password: "",
+  user: '',
   remindMe: false
 };
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case SIGNUP:
+    case SAVE_SESSION:
       return Object.assign({}, state, {
-        isLoggedIn: false,
-        name: action.name,
-        email: action.email,
-        password: action.password,
-      });
-    case LOGIN:
-      return Object.assign({}, state, {
-        isLoggedIn: true,
-        name: action.name,
-        password: action.password,
+        token: action.token,
         remindMe: action.remindMe
+      });
+    case GET_USER:
+      return Object.assign({}, state, {
+        name: action.name,
+        email: action.email
       });
     case LOGOUT:
       return defaultState;

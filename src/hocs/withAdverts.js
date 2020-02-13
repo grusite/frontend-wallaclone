@@ -1,4 +1,4 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import {
   getAdverts,
@@ -6,13 +6,13 @@ import {
   getUpdatedAdvert,
   getCreatedAdvert,
   getUi
-} from "../selectors";
+} from '../store/selectors';
 import {
   fetchAdverts,
   fetchAdvertById,
   updateAdvert,
   createAdvert
-} from "../actions/actions";
+} from '../store/actions/actions';
 
 const mapStateToProps = state => ({
   adverts: getAdverts(state),

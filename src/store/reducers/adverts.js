@@ -1,10 +1,4 @@
-import {
-  FETCH_ADVERTS_SUCCESS,
-  FETCH_ADVERT_SUCCESS,
-  TAGS_LOAD_SUCCESFULL,
-  ADVERTS_UPDATE_SUCCESFULL,
-  ADVERTS_CREATE_SUCCESFULL
-} from "../actions/actionTypes";
+import * as TYPES from '../actions/actionTypes';
 
 const defaultState = {
   adverts: [],
@@ -24,7 +18,7 @@ export default (state = defaultState, action) => {
           error: null
         }
       });
-    case FETCH_ADVERTS_SUCCESS:
+    case TYPES.FETCH_ADVERTS_SUCCESS:
       return Object.assign({}, state, {
         adverts: action.adverts,
         ui: {
@@ -32,7 +26,7 @@ export default (state = defaultState, action) => {
           error: null
         }
       });
-    case FETCH_ADVERT_SUCCESS:
+    case TYPES.FETCH_ADVERT_SUCCESS:
       return Object.assign({}, state, {
         advertById: action.advert,
         ui: {
@@ -40,7 +34,7 @@ export default (state = defaultState, action) => {
           error: null
         }
       });
-    case TAGS_LOAD_SUCCESFULL:
+    case TYPES.TAGS_LOAD_SUCCESS:
       return Object.assign({}, state, {
         tags: action.tags,
         ui: {
@@ -48,7 +42,7 @@ export default (state = defaultState, action) => {
           error: null
         }
       });
-    case ADVERTS_CREATE_SUCCESFULL:
+    case TYPES.ADVERTS_CREATE_SUCCESS:
       return Object.assign({}, state, {
         advertCreated: action.advert,
         ui: {
@@ -56,7 +50,7 @@ export default (state = defaultState, action) => {
           error: null
         }
       });
-    case ADVERTS_UPDATE_SUCCESFULL:
+    case TYPES.ADVERTS_UPDATE_SUCCESS:
       return Object.assign({}, state, {
         advertUpdated: action.advert,
         ui: {

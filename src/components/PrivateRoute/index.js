@@ -1,7 +1,7 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import PrivateRoute from "./PrivateRoute";
-import { isUserRegistered } from "../../selectors";
+import PrivateRoute from './PrivateRoute';
+import { isUserRegistered } from '../../store/selectors';
 
 const mapStateToProps = state => ({
   authorized: isUserRegistered(state)

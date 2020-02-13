@@ -1,9 +1,9 @@
-const API = 'http://localhost:3000/apiv1';
+const API = 'http://localhost:8080/apiv1';
 
-export const register = async payload => {
-  let response = await fetch(`${API}/register`, {
+export const register = async user => {
+  let response = await fetch(`${API}/user/register`, {
     method: 'POST',
-    body: payload,
+    body: user,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
@@ -13,15 +13,21 @@ export const register = async payload => {
   return data;
 };
 
-export const login = async payload => {
-  let response = await fetch(`${API}/login`, {
+export const login = async user => {
+  let response = await fetch(`${API}/user/login`, {
     method: 'POST',
-    body: payload,
+    body: user,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     }
   });
+  let data = response.json();
+  return data;
+};
+
+export const getUser = async () => {
+  let response = await fetch(`${API}/user`);
   let data = response.json();
   return data;
 };

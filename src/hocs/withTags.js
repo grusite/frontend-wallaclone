@@ -1,7 +1,7 @@
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { getTags } from "../selectors";
-import { loadTags } from "../actions/actions";
+import { getTags } from '../store/selectors';
+import { loadTags } from '../store/actions/actions';
 
 const mapStateToProps = state => ({
   tags: getTags(state)
