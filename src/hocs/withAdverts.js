@@ -12,7 +12,7 @@ import {
   fetchAdvertById,
   updateAdvert,
   createAdvert
-} from '../store/actions/actions';
+} from '../store/actions';
 
 const mapStateToProps = state => ({
   adverts: getAdverts(state),

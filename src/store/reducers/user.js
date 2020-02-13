@@ -1,9 +1,9 @@
-import { SAVE_SESSION, GET_USER, LOGOUT } from '../actions/actionTypes';
+import { SAVE_SESSION, GET_USER, LOGOUT } from '../actionTypes';
 
 const defaultState = {
-  // TODO borrar
-  isLoggedIn: false,
-  user: '',
+  name: '',
+  email: '',
+  token: '',
   remindMe: false
 };
 
@@ -16,8 +16,8 @@ export default (state = defaultState, action) => {
       });
     case GET_USER:
       return Object.assign({}, state, {
-        name: action.name,
-        email: action.email
+        name: action.user.name,
+        email: action.user.email
       });
     case LOGOUT:
       return defaultState;

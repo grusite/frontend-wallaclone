@@ -109,7 +109,6 @@ export default function Login({ t, userLogin }) {
                 label={t('labelPassword')}
                 name="password"
                 component={TextField}
-                value={values.password}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

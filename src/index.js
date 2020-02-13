@@ -4,8 +4,8 @@ import './i18n';
 import { createBrowserHistory } from 'history';
 import { configureStore } from './store';
 import storage from './utils/storage';
-// import { loadTags } from './store/actions/actions';
-import * as TYPES from './store/actions/actionTypes';
+import { getUserRequest } from './store/actions';
+import * as TYPES from './store/actionTypes';
 
 // import './index.css'
 import Root from './components/Root';
@@ -40,14 +40,11 @@ store.subscribe(() => {
   if (lastAction.type === TYPES.LOGOUT) {
     localStorage.clear();
   }
-  // cuando tengamos las tags en el store, renderizamos la app
-  if (lastAction.type === TYPES.TAGS_LOAD_SUCCESS) {
-    renderApp({ store, history });
-  }
+  renderApp({ store, history });
 });
 
-// lanzamos una accion inicial para cargar las tags
-// store.dispatch(loadTags());
+// lanzamos una accion inicial para cargar el usuario
+store.dispatch(getUserRequest());
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

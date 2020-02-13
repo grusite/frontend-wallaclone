@@ -8,7 +8,7 @@ import {
   getAdvertById,
   updateAd,
   createAd
-} from '../../services/AdsAPIService';
+} from '../services/AdsAPIService';
 
 export const callRequest = () => ({
   type: TYPES.CALL_REQUEST
@@ -65,6 +65,21 @@ export const fetchAdvertSuccess = advert => ({
   advert
 });
 
+export const userRegister = (email, password, provider) => async (
+  dispatch,
+  _getState,
+  { history }
+) => {
+  dispatch(callRequest());
+  try {
+    await register(email, password, provider);
+    dispatch(callSuccess());
+    history.push('/login');
+  } catch (error) {
+    dispatch(callFailure(error));
+  }
+};
+
 export const userLogin = (email, password, remindMe) => async (
   dispatch,
   _getState,
@@ -80,10 +95,10 @@ export const userLogin = (email, password, remindMe) => async (
   }
 };
 
-export const getUserRequest = token => async dispatch => {
+export const getUserRequest = () => async dispatch => {
   dispatch(callRequest());
   try {
-    const user = await getUser(token);
+    const user = await getUser();
     dispatch(getUserSuccess(user));
   } catch (error) {
     dispatch(callFailure(error));
