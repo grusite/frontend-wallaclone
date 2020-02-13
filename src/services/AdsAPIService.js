@@ -1,5 +1,31 @@
 const API = 'http://localhost:3000/apiv1';
 
+export const register = async payload => {
+  let response = await fetch(`${API}/register`, {
+    method: 'POST',
+    body: payload,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
+  let data = response.json();
+  return data;
+};
+
+export const login = async payload => {
+  let response = await fetch(`${API}/login`, {
+    method: 'POST',
+    body: payload,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  });
+  let data = response.json();
+  return data;
+};
+
 export const getAdverts = async () => {
   let response = await fetch(`${API}/anuncios/`);
   let data = await response.json();
