@@ -5,9 +5,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import IconButton from '@material-ui/core/IconButton';
+import InputLabel from '@material-ui/core/InputLabel';
 import Visibility from '@material-ui/icons/Visibility';
+import FormControl from '@material-ui/core/FormControl';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -33,13 +36,10 @@ function Copyright() {
 
 export default function Login({ t, userLogin }) {
   const [statusMessage, setStatusMessage] = useState('');
-  const [values, setValues] = React.useState({
-    password: '',
-    showPassword: false
-  });
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setShowPassword(!showPassword);
   };
 
   const handleMouseDownPassword = event => {
@@ -100,27 +100,30 @@ export default function Login({ t, userLogin }) {
               />
             </Grid>
             <Grid item xs={12}>
-              <Input
-                id="standard-adornment-password"
-                type={values.showPassword ? 'text' : 'password'}
-                variant="outlined"
-                required
-                fullWidth
-                label={t('labelPassword')}
-                name="password"
-                component={TextField}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
+              <FormControl required fullWidth variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  {t('labelPassword')}
+                </InputLabel>
+                <Input
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  component={OutlinedInput}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  labelWidth={85}
+                />
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               {statusMessage}

@@ -4,6 +4,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import Visibility from '@material-ui/icons/Visibility';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -24,13 +31,22 @@ function Copyright() {
   );
 }
 
-export default function Register({ t, userLogin }) {
+export default function Register({ t, userRegister }) {
   const [statusMessage, setStatusMessage] = useState('');
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = event => {
+    event.preventDefault();
+  };
 
   const handleSubmit = event => {
-    const { name, email, password } = event;
-    if (name && email && password) {
-      userLogin(name, email, password);
+    const { email, password, provider } = event;
+    if (email && password && provider) {
+      userRegister(email, password, provider);
     } else {
       setStatusMessage(
         <MySnackbarContentWrapper
@@ -93,16 +109,30 @@ export default function Register({ t, userLogin }) {
               />
             </Grid>
             <Grid item xs={12}>
-              <Input
-                variant="outlined"
-                required
-                fullWidth
-                id="password"
-                label={t('labelPassword')}
-                name="password"
-                autoComplete="lname"
-                component={TextField}
-              />
+              <FormControl required fullWidth variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  {t('labelPassword')}
+                </InputLabel>
+                <Input
+                  id="outlined-adornment-password"
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  component={OutlinedInput}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  labelWidth={85}
+                />
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               {statusMessage}
