@@ -9,9 +9,9 @@ import {
 } from '../store/selectors';
 import {
   fetchAdverts,
-  fetchAdvertById,
-  updateAdvert,
-  createAdvert
+  fetchAdvertById
+  // updateAdvert,
+  // createAdvert
 } from '../store/actions';
 
 const mapStateToProps = state => ({
@@ -24,9 +24,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchAdverts,
-  fetchAdvertById,
-  updateAdvert,
-  createAdvert
+  fetchAdvertById
+  // updateAdvert,
+  // createAdvert
 };
 
 export default connect(mapStateToProps, mapDispatchToProps);

@@ -34,7 +34,7 @@ function Copyright() {
   );
 }
 
-export default function Login({ t, userLogin, userTraditionalLogin }) {
+export default function Login({ t, userTraditionalLogin }) {
   const [statusMessage, setStatusMessage] = useState('');
   const [showPassword, setShowPassword] = React.useState(false);
 

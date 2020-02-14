@@ -1,4 +1,4 @@
-import { SAVE_SESSION, GET_USER, LOGOUT } from '../actionTypes';
+import { SAVE_SESSION_SUCCESS, GET_USER_SUCCESS, LOGOUT } from '../actionTypes';
 
 const defaultState = {
   name: '',
@@ -9,12 +9,12 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case SAVE_SESSION:
+    case SAVE_SESSION_SUCCESS:
       return Object.assign({}, state, {
         token: action.token,
         remindMe: action.remindMe
       });
-    case GET_USER:
+    case GET_USER_SUCCESS:
       return Object.assign({}, state, {
         name: action.user.name,
         email: action.user.email

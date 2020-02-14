@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { store } from '../';
-// import { apiUrl } from '../parameters'
+import { apiUrl } from '../parameters';
 import Debug from 'debug';
 import { userLogout } from '../store/actions';
 import { isUserRegistered } from '../store/selectors';
 
 const debug = Debug('app:request');
-
-const apiUrl = 'http://localhost:8080';
 
 const request = axios.create({
   baseURL: apiUrl,

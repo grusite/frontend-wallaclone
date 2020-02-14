@@ -1,5 +1,6 @@
 const defaultState = {
   isFetching: false,
+  status: true,
   error: null
 };
 
@@ -13,6 +14,7 @@ export default (state = defaultState, action) => {
     case (action.type.match(/_SUCCESS$/) || {}).input:
       return Object.assign({}, state, {
         isFetching: false,
+        status: action.status,
         error: null
       });
     case (action.type.match(/_FAILURE$/) || {}).input:

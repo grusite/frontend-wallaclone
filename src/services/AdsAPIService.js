@@ -28,18 +28,32 @@ export const register = async payload => {
   });
 };
 
-// export const login = async (email, password) => {
-//   let response = await fetch(`${API}/user/login`, {
-//     method: 'POST',
-//     body: [email, password],
-//     headers: {
-//       Accept: 'application/json',
-//       'Content-Type': 'application/json'
-//     }
-//   });
-//   let data = response.json();
-//   return data;
-// };
+export const googleLogin = async () => {
+  await window.gapi.auth2.getAuthInstance().signIn();
+  const user = window.gapi.auth2.getAuthInstance().currentUser.get();
+  const idToken = user.getAuthResponse().id_token;
+  return await client({
+    method: 'post',
+    url: '/user/login',
+    data: {
+      provider: 'google',
+      payload: { idToken }
+    }
+  });
+};
+
+export const facebookLogin = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/login',
+    data: {
+      provider: 'login',
+      payload: {
+        accessToken: payload.accessToken
+      }
+    }
+  });
+};
 
 export const getUser = async () => {
   return await client({
@@ -49,33 +63,31 @@ export const getUser = async () => {
 };
 
 export const getAdverts = async () => {
-  let response = await fetch(`${API}/apiv1/anuncios/`);
-  let data = await response.json();
-  let results = await data.results;
-  return results;
+  return await client({
+    method: 'get',
+    url: '/apiv1/anuncios/'
+  });
 };
 
 export const getAdvertById = async id => {
-  let response = await fetch(`${API}/apiv1/anuncios/${id}`);
-  let data = await response.json();
-  let result = await data.result;
-  return result;
+  return await client({
+    method: 'get',
+    url: `/apiv1/anuncios/${id}`
+  });
 };
 
 export const filterAdverts = async params => {
-  let response = await fetch(`${API}/apiv1/anuncios?${params}`);
-  let data = await response.json();
-  let results = await data.results;
-  return results;
+  return await client({
+    method: 'get',
+    url: `/apiv1/anuncios?${params}`
+  });
 };
 
 export const getTags = async () => {
-  let response = await fetch(`${API}/apiv1/anuncios/tags`, {
-    method: 'GET'
+  return await client({
+    method: 'get',
+    url: '/apiv1/anuncios/tags'
   });
-  let data = await response.json();
-  let results = await data.results;
-  return results;
 };
 
 export const createAd = async advert => {

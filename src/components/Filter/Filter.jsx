@@ -1,31 +1,31 @@
-import React from "react";
+import React from 'react';
 
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutlined";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
-import "./filter.css";
+import './filter.css';
 
 const initialState = {
-  type: "buy",
-  name: "",
-  description: "",
+  type: 'buy',
+  name: '',
+  description: '',
   price: 0,
   tags: [],
-  tagSelected: ""
+  tagSelected: ''
 };
 
 class Filter extends React.Component {
@@ -76,7 +76,7 @@ class Filter extends React.Component {
                       value="buy"
                       name="type"
                       onChange={this.handleChange}
-                      checked={type === "buy"}
+                      checked={type === 'buy'}
                     />
                   }
                   label="Compra"
@@ -89,7 +89,7 @@ class Filter extends React.Component {
                       value="sell"
                       name="type"
                       onChange={this.handleChange}
-                      checked={type === "sell"}
+                      checked={type === 'sell'}
                     />
                   }
                   label="Venta"
@@ -144,10 +144,12 @@ class Filter extends React.Component {
                     name="tagSelected"
                   >
                     <option value="" />
-                    {tags.map((tag, index) => (
+                    {/* {tags.map((tag, index) => (
                       <option key={index} value={tag}>
                         {tag}
                       </option>
+                    ))} */}
+                    <option value={tags[0]}>{tags[0]}</option>
                     ))}
                   </Select>
                 </FormControl>

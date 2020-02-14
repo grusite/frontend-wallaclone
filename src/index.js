@@ -33,7 +33,7 @@ export const store = configureStore({
 store.subscribe(() => {
   const { lastAction, user } = store.getState();
 
-  if (lastAction.type === TYPES.SAVE_SESSION && lastAction.remindMe) {
+  if (lastAction.type === TYPES.SAVE_SESSION_SUCCESS && lastAction.remindMe) {
     setItem('Wallaclone-User', JSON.stringify(user));
   }
 

@@ -4,6 +4,7 @@ import { getSession, getUser } from '../store/selectors';
 import {
   userRegister,
   userTraditionalLogin,
+  getUserRequest,
   userLogout
 } from '../store/actions';
 
@@ -16,6 +17,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   userRegister,
   userTraditionalLogin,
+  getUserRequest,
   userLogout
 };
 
