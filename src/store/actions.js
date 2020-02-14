@@ -130,8 +130,10 @@ export const getUserRequest = () => async dispatch => {
   dispatch(callRequest());
   try {
     const user = await getUser();
+    console.log('user', user);
     dispatch(getUserSuccess(user));
   } catch (error) {
+    console.log('error', error);
     dispatch(callFailure(error));
   }
 };
@@ -143,11 +145,6 @@ export const userLogout = (...args) => async (
 ) => {
   dispatch(logout());
   history.push('/register');
-};
-
-export const userSignUp = (...args) => (dispatch, _getState, { history }) => {
-  // meter llamada API
-  history.push('/login');
 };
 
 export const fetchAdverts = params => async dispatch => {

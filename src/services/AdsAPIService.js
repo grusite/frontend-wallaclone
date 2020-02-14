@@ -28,23 +28,24 @@ export const register = async payload => {
   });
 };
 
-export const login = async (email, password) => {
-  let response = await fetch(`${API}/user/login`, {
-    method: 'POST',
-    body: [email, password],
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    }
-  });
-  let data = response.json();
-  return data;
-};
+// export const login = async (email, password) => {
+//   let response = await fetch(`${API}/user/login`, {
+//     method: 'POST',
+//     body: [email, password],
+//     headers: {
+//       Accept: 'application/json',
+//       'Content-Type': 'application/json'
+//     }
+//   });
+//   let data = response.json();
+//   return data;
+// };
 
 export const getUser = async () => {
-  let response = await fetch(`${API}/user`);
-  let data = response.json();
-  return data;
+  return await client({
+    method: 'get',
+    url: '/user'
+  });
 };
 
 export const getAdverts = async () => {

@@ -22,10 +22,11 @@ request.interceptors.response.use(undefined, function(err) {
 });
 
 export default async function client(opts) {
-  if (isUserRegistered(store.getState())) {
+  const state = store.getState();
+  if (isUserRegistered(state)) {
     opts.headers = {
       ...opts.headers,
-      Authorization: `Bearer ${store.state.root.token}`
+      Authorization: `Bearer ${state.user.token}`
     };
   }
   try {
