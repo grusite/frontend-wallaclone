@@ -1,22 +1,37 @@
+import client from '../utils/client';
+
 const API = 'http://localhost:8080';
 
-export const register = async user => {
-  let response = await fetch(`${API}/user/register`, {
-    method: 'POST',
-    body: user,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
+export const traditionalLogin = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/login',
+    data: {
+      provider: 'traditional',
+      payload: {
+        email: payload.email,
+        password: payload.password
+      }
     }
   });
-  let data = response.json();
-  return data;
 };
 
-export const login = async user => {
+export const register = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/register',
+    data: {
+      name: payload.name,
+      email: payload.email,
+      password: payload.password
+    }
+  });
+};
+
+export const login = async (email, password) => {
   let response = await fetch(`${API}/user/login`, {
     method: 'POST',
-    body: user,
+    body: [email, password],
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'

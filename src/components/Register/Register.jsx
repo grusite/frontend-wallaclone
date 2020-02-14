@@ -44,9 +44,9 @@ export default function Register({ t, userRegister }) {
   };
 
   const handleSubmit = event => {
-    const { email, password, provider } = event;
-    if (email && password && provider) {
-      userRegister(email, password, provider);
+    const { name, email, password } = event;
+    if (name && email && password) {
+      userRegister(name, email, password);
     } else {
       setStatusMessage(
         <MySnackbarContentWrapper

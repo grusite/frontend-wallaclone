@@ -23,7 +23,7 @@ const { setItem, getItem } = storage();
 const session = JSON.parse(getItem('Wallaclone-User')) || undefined;
 
 // configuramos un store, pasando los datos de la sesion como estado inicial
-const store = configureStore({
+export const store = configureStore({
   history
 })({
   user: session

@@ -34,7 +34,7 @@ function Copyright() {
   );
 }
 
-export default function Login({ t, userLogin }) {
+export default function Login({ t, userLogin, userTraditionalLogin }) {
   const [statusMessage, setStatusMessage] = useState('');
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -49,7 +49,8 @@ export default function Login({ t, userLogin }) {
   const handleSubmit = event => {
     const { email, password, remindMe } = event;
     if (email && password) {
-      userLogin(email, password, remindMe);
+      // userLogin(email, password, remindMe);
+      userTraditionalLogin(email, password, remindMe);
     } else {
       setStatusMessage(
         <MySnackbarContentWrapper
@@ -80,7 +81,7 @@ export default function Login({ t, userLogin }) {
           className="form"
           noValidate
           initialValue={{
-            name: '',
+            email: '',
             password: '',
             remindMe: false
           }}

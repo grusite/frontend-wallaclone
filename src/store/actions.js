@@ -1,7 +1,7 @@
 import * as TYPES from './actionTypes';
 import {
   register,
-  login,
+  traditionalLogin,
   getUser,
   getTags,
   filterAdverts,
@@ -65,14 +65,14 @@ export const fetchAdvertSuccess = advert => ({
   advert
 });
 
-export const userRegister = (email, password, provider) => async (
+export const userRegister = (name, email, password) => async (
   dispatch,
   _getState,
   { history }
 ) => {
   dispatch(callRequest());
   try {
-    await register(email, password, provider);
+    await register({ name, email, password });
     dispatch(callSuccess());
     history.push('/login');
   } catch (error) {
@@ -80,20 +80,51 @@ export const userRegister = (email, password, provider) => async (
   }
 };
 
-export const userLogin = (email, password, remindMe) => async (
+export const userTraditionalLogin = (email, password, remindMe) => async (
   dispatch,
   _getState,
   { history }
 ) => {
   dispatch(callRequest());
   try {
-    const res = await login(email, password);
-    dispatch(saveSession(res.data.bearer, remindMe));
+    const res = await traditionalLogin({ email, password });
+    console.log('res', res);
+    dispatch(saveSession(res.data.data.bearer, remindMe));
     history.push('/');
   } catch (error) {
     dispatch(callFailure(error));
   }
 };
+
+// export const userGoogleLogin = (email, password, remindMe) => async (
+//   dispatch,
+//   _getState,
+//   { history }
+// ) => {
+//   dispatch(callRequest());
+//   try {
+//     const res = await googleLogin(email, password);
+//     dispatch(saveSession(res.data.data.bearer, remindMe));
+//     history.push('/');
+//   } catch (error) {
+//     dispatch(callFailure(error));
+//   }
+// };
+
+// export const userFacebookLogin = (email, password, remindMe) => async (
+//   dispatch,
+//   _getState,
+//   { history }
+// ) => {
+//   dispatch(callRequest());
+//   try {
+//     const res = await facebookLogin(email, password);
+//     dispatch(saveSession(res.data.data.bearer, remindMe));
+//     history.push('/');
+//   } catch (error) {
+//     dispatch(callFailure(error));
+//   }
+// };
 
 export const getUserRequest = () => async dispatch => {
   dispatch(callRequest());

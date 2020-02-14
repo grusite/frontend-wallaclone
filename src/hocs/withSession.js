@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 
 import { getSession, getUser } from '../store/selectors';
-import { userSignUp, userLogin, userLogout } from '../store/actions';
+import {
+  userRegister,
+  userTraditionalLogin,
+  userLogout
+} from '../store/actions';
 
 const mapStateToProps = state => ({
   ...state,
@@ -10,8 +14,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  userSignUp,
-  userLogin,
+  userRegister,
+  userTraditionalLogin,
   userLogout
 };
 
