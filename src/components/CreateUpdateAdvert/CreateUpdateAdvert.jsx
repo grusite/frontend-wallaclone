@@ -1,106 +1,106 @@
-import React from "react";
+import React from 'react'
 
-import Grid from "@material-ui/core/Grid";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import ShoppingBasketOutlinedIcon from "@material-ui/icons/ShoppingBasketOutlined";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import ListItemText from "@material-ui/core/ListItemText";
-import Select from "@material-ui/core/Select";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import Grid from '@material-ui/core/Grid'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined'
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import ListItemText from '@material-ui/core/ListItemText'
+import Select from '@material-ui/core/Select'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
-import NavBar from "../Navbar";
-import MySnackbarContentWrapper from "../StatusMessages";
+import NavBar from '../Navbar'
+import MySnackbarContentWrapper from '../StatusMessages'
 
-import "./createUpdateAdvert.css";
+import './createUpdateAdvert.css'
 
 const initialState = {
   advert: {
-    type: "buy",
-    name: "",
-    description: "",
+    type: 'buy',
+    name: '',
+    description: '',
     price: 0,
-    photo: "",
-    tags: []
+    picture: '',
+    tags: [],
   },
   ui: {
     isFetching: true,
-    error: ""
+    error: '',
   },
   allTags: [],
   success: false,
   error: false,
-  infoMessage: false
-};
+  infoMessage: false,
+}
 
 class createUpdateAdvert extends React.Component {
   constructor(props) {
-    super(props);
-    initialState.allTags = this.props.tags;
-    this.state = initialState;
+    super(props)
+    initialState.allTags = this.props.tags
+    this.state = initialState
   }
 
   async componentDidMount() {
     // Si estoy editando un anuncio, edito los valores con lo que tenía el anuncio
     // Y si no recupero del store los tags y dejo los valores vacíos
     if (this.comeFromUpdate()) {
-      const advertId = this.props.match.params.id;
-      await this.props.fetchAdvertById(advertId);
+      const advertId = this.props.match.params.id
+      await this.props.fetchAdvertById(advertId)
       this.setState({
-        advert: this.props.advert,
-        ui: this.props.ui
-      });
+        advert: this.props.adverts,
+        ui: this.props.ui,
+      })
     }
   }
 
   comeFromUpdate = () => {
-    return this.props.match.url.match(/^(\/update\/)(\w+$)/g);
-  };
+    return this.props.match.url.match(/^(\/update\/)(\w+$)/g)
+  }
 
   resetForm = () => {
-    this.setState(initialState);
-  };
+    this.setState(initialState)
+  }
 
   handleClose = () => {
     this.setState({
       ...this.state,
       error: false,
       success: false,
-      infoMessage: false
-    });
-  };
+      infoMessage: false,
+    })
+  }
 
   handleChange = event => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
 
     this.setState(prevState => ({
       advert: {
         ...prevState.advert,
-        [name]: value
-      }
-    }));
-  };
+        [name]: value,
+      },
+    }))
+  }
 
   handleSubmit = async () => {
-    const { type, name, description, price, photo, tags } = this.state.advert;
+    const { type, name, description, price, picture, tags } = this.state.advert
 
-    if (!name || !price || !photo || !tags) {
+    if (!name || !price || !picture || !tags) {
       this.setState(prevState => ({
         ...prevState,
-        infoMessage: true
-      }));
-      return;
+        infoMessage: true,
+      }))
+      return
     }
 
     const ad = {
@@ -108,62 +108,62 @@ class createUpdateAdvert extends React.Component {
       name,
       description,
       price,
-      photo,
-      tags
-    };
+      picture,
+      tags,
+    }
 
     if (this.comeFromUpdate()) {
-      const id = this.props.match.params.id;
-      await this.props.updateAdvert(ad, id);
+      const id = this.props.match.params.id
+      await this.props.updateAdvert(ad, id)
       if (this.props.advertUpdated.success) {
         this.setState(prevState => ({
           ...prevState,
-          success: true
-        }));
+          success: true,
+        }))
       } else {
         this.setState(prevState => ({
           ...prevState,
-          error: true
-        }));
+          error: true,
+        }))
       }
     } else {
-      await this.props.createAdvert(ad);
+      await this.props.createAdvert(ad)
       if (this.props.advertCreated.success) {
         this.setState(prevState => ({
           ...prevState,
-          success: true
-        }));
+          success: true,
+        }))
       } else {
         this.setState(prevState => ({
           ...prevState,
-          error: true
-        }));
+          error: true,
+        }))
       }
     }
-  };
+  }
 
   render() {
-    const { type, name, description, price, photo, tags } = this.state.advert;
-    const { allTags } = this.state;
+    const { type, name, description, price, picture, tags } = this.state.advert
+    const { allTags } = this.state
 
     let title = (
       <Typography variant="h6" gutterBottom>
         Crea tu nuevo anuncio
       </Typography>
-    );
+    )
 
-    let buttonText = "Crear";
+    let buttonText = 'Crear'
 
     if (this.comeFromUpdate()) {
       title = (
         <Typography variant="h6" gutterBottom>
           Edita el anuncio seleccionado
         </Typography>
-      );
-      buttonText = "Actualizar";
+      )
+      buttonText = 'Actualizar'
     }
 
-    let statusMessage = "";
+    let statusMessage = ''
 
     if (this.state.success) {
       statusMessage = (
@@ -173,7 +173,7 @@ class createUpdateAdvert extends React.Component {
           className="margin"
           message="¡Todo correcto!"
         />
-      );
+      )
     } else if (this.state.infoMessage) {
       statusMessage = (
         <MySnackbarContentWrapper
@@ -182,7 +182,7 @@ class createUpdateAdvert extends React.Component {
           className="margin"
           message="Debe rellenar los marcados con asterisco"
         />
-      );
+      )
     } else if (this.state.error) {
       statusMessage = (
         <MySnackbarContentWrapper
@@ -191,7 +191,7 @@ class createUpdateAdvert extends React.Component {
           className="margin"
           message="Ha ocurrido un error, intentelo más tarde"
         />
-      );
+      )
     }
 
     return (
@@ -212,7 +212,7 @@ class createUpdateAdvert extends React.Component {
                         value="buy"
                         name="type"
                         onChange={this.handleChange}
-                        checked={type === "buy"}
+                        checked={type === 'buy'}
                       />
                     }
                     label="Comprar"
@@ -225,7 +225,7 @@ class createUpdateAdvert extends React.Component {
                         value="sell"
                         name="type"
                         onChange={this.handleChange}
-                        checked={type === "sell"}
+                        checked={type === 'sell'}
                       />
                     }
                     label="Vender"
@@ -265,21 +265,19 @@ class createUpdateAdvert extends React.Component {
                     value={price}
                     name="price"
                     onChange={this.handleChange}
-                    startAdornment={
-                      <InputAdornment position="start">€</InputAdornment>
-                    }
+                    startAdornment={<InputAdornment position="start">€</InputAdornment>}
                   />
                 </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
-                  id="photo"
-                  name="photo"
+                  id="picture"
+                  name="picture"
                   label="Inserte la url de la imagen"
                   fullWidth
                   autoComplete="url picture"
-                  value={photo}
+                  value={picture}
                   onChange={this.handleChange}
                 />
               </Grid>
@@ -294,7 +292,7 @@ class createUpdateAdvert extends React.Component {
                     name="tags"
                     onChange={this.handleChange}
                     input={<Input id="select-multiple-checkbox" />}
-                    renderValue={selected => selected.join(", ")}
+                    renderValue={selected => selected.join(', ')}
                   >
                     {allTags.map(tag => (
                       <MenuItem key={tag} value={tag}>
@@ -332,8 +330,8 @@ class createUpdateAdvert extends React.Component {
           </div>
         </Container>
       </>
-    );
+    )
   }
 }
 
-export default createUpdateAdvert;
+export default createUpdateAdvert

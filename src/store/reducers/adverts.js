@@ -1,18 +1,18 @@
-import * as TYPES from '../actionTypes';
+import * as TYPES from '../actionTypes'
 
-const defaultState = [];
+const defaultState = []
 
 export default (state = defaultState, action) => {
   switch (action.type) {
     case TYPES.FETCH_ADVERTS_SUCCESS:
-      return Object.assign({}, state, action.adverts);
+      return action.adverts
     case TYPES.FETCH_ADVERT_SUCCESS:
-      return Object.assign({}, state, action.advert);
+      return action.advert
     // case TYPES.ADVERTS_CREATE_SUCCESS:
     //   return Object.assign({}, state, action.advert);
     // case TYPES.ADVERTS_UPDATE_SUCCESS:
     //   return Object.assign({}, state, action.advert);
     default:
-      return state;
+      return state
   }
-};
+}

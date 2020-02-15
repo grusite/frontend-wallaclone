@@ -1,23 +1,23 @@
-import React from 'react';
+import React from 'react'
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined'
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
-import './filter.css';
+import './filter.css'
 
 const initialState = {
   type: 'buy',
@@ -25,39 +25,40 @@ const initialState = {
   description: '',
   price: 0,
   tags: [],
-  tagSelected: ''
-};
+  tagSelected: '',
+}
 
 class Filter extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       ...initialState,
       tags: this.props.tags,
-      tagSelected: this.props.tagSelected
-    };
+      tagSelected: this.props.tagSelected,
+    }
   }
 
   handleChange = event => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
 
     this.setState(prevState => ({
       ...prevState,
-      [name]: value
-    }));
-  };
+      [name]: value,
+    }))
+  }
 
   resetForm = () => {
-    initialState.tags = this.state.tags;
-    this.setState(initialState);
-  };
+    initialState.tags = this.state.tags
+    this.setState(initialState)
+  }
 
   handleSubmit = () => {
-    this.props.onFilterChange(this.state);
-  };
+    this.props.onFilterChange(this.state)
+  }
 
   render() {
-    const { type, name, description, price, tags, tagSelected } = this.state;
+    const { type, name, description, price, tags, tagSelected } = this.state
+    console.log('tags', tags)
 
     return (
       <>
@@ -127,9 +128,7 @@ class Filter extends React.Component {
                     value={price}
                     name="price"
                     onChange={this.handleChange}
-                    startAdornment={
-                      <InputAdornment position="start">€</InputAdornment>
-                    }
+                    startAdornment={<InputAdornment position="start">€</InputAdornment>}
                   />
                   <FormHelperText>min-max | -max | min- </FormHelperText>
                 </FormControl>
@@ -144,12 +143,12 @@ class Filter extends React.Component {
                     name="tagSelected"
                   >
                     <option value="" />
-                    {/* {tags.map((tag, index) => (
+                    {tags.map((tag, index) => (
                       <option key={index} value={tag}>
                         {tag}
                       </option>
-                    ))} */}
-                    <option value={tags[0]}>{tags[0]}</option>
+                    ))}
+                    {/* <option value={tags[0]}>{tags[0]}</option> */}
                     ))}
                   </Select>
                 </FormControl>
@@ -178,8 +177,8 @@ class Filter extends React.Component {
           </Grid>
         </div>
       </>
-    );
+    )
   }
 }
 
-export default Filter;
+export default Filter

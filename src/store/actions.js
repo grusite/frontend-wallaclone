@@ -1,4 +1,4 @@
-import * as TYPES from './actionTypes';
+import * as TYPES from './actionTypes'
 import {
   register,
   traditionalLogin,
@@ -7,45 +7,41 @@ import {
   filterAdverts,
   getAdvertById,
   updateAd,
-  createAd
-} from '../services/AdsAPIService';
+  createAd,
+} from '../services/AdsAPIService'
 
 export const callRequest = () => ({
-  type: TYPES.CALL_REQUEST
-});
+  type: TYPES.CALL_REQUEST,
+})
 
 export const callSuccess = status => ({
   type: TYPES.CALL_SUCCESS,
-  status
-});
+})
 
 export const callFailure = error => ({
   type: TYPES.CALL_FAILURE,
-  error
-});
+  error,
+})
 
-export const saveSession = (token, remindMe, status) => ({
+export const saveSessionSuccess = (token, remindMe) => ({
   type: TYPES.SAVE_SESSION_SUCCESS,
   token,
   remindMe,
-  status
-});
+})
 
-export const getUserSuccess = (user, status) => ({
+export const getUserSuccess = user => ({
   type: TYPES.GET_USER_SUCCESS,
   user,
-  status
-});
+})
 
 export const logout = () => ({
-  type: TYPES.LOGOUT
-});
+  type: TYPES.LOGOUT,
+})
 
-export const loadTagsSuccess = (tags, status) => ({
+export const loadTagsSuccess = tags => ({
   type: TYPES.TAGS_LOAD_SUCCESS,
   tags,
-  status
-});
+})
 
 // // TODO Ver si es necesario o no
 // export const createAdvertsSuccess = (advert,status) => ({
@@ -61,48 +57,41 @@ export const loadTagsSuccess = (tags, status) => ({
 //   status
 // });
 
-export const fetchAdvertsSuccess = (adverts, status) => ({
+export const fetchAdvertsSuccess = adverts => ({
   type: TYPES.FETCH_ADVERTS_SUCCESS,
   adverts,
-  status
-});
+})
 
-export const fetchAdvertSuccess = (advert, status) => ({
+export const fetchAdvertSuccess = advert => ({
   type: TYPES.FETCH_ADVERT_SUCCESS,
   advert,
-  status
-});
+})
 
-export const userRegister = (name, email, password) => async (
-  dispatch,
-  _getState,
-  { history }
-) => {
-  dispatch(callRequest());
+export const userRegister = (name, email, password) => async (dispatch, _getState, { history }) => {
+  dispatch(callRequest())
   try {
-    const res = await register({ name, email, password });
-    dispatch(callSuccess(res.data.status));
-    history.push('/login');
+    const res = await register({ name, email, password })
+    dispatch(callSuccess(res.data.status))
+    history.push('/login')
   } catch (error) {
-    dispatch(callFailure(error));
+    dispatch(callFailure(error))
   }
-};
+}
 
 export const userTraditionalLogin = (email, password, remindMe) => async (
   dispatch,
   _getState,
   { history }
 ) => {
-  dispatch(callRequest());
+  dispatch(callRequest())
   try {
-    const res = await traditionalLogin({ email, password });
-    console.log('res', res);
-    dispatch(saveSession(res.data.data.bearer, remindMe, res.data.status));
-    history.push('/');
+    const res = await traditionalLogin({ email, password })
+    dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
+    history.push('/')
   } catch (error) {
-    dispatch(callFailure(error));
+    dispatch(callFailure(error))
   }
-};
+}
 
 // export const userGoogleLogin = (email, password, remindMe) => async (
 //   dispatch,
@@ -112,7 +101,7 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
 //   dispatch(callRequest());
 //   try {
 //     const res = await googleLogin(email, password);
-//     dispatch(saveSession(res.data.data.bearer, remindMe));
+//     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe));
 //     history.push('/');
 //   } catch (error) {
 //     dispatch(callFailure(error));
@@ -127,7 +116,7 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
 //   dispatch(callRequest());
 //   try {
 //     const res = await facebookLogin(email, password);
-//     dispatch(saveSession(res.data.data.bearer, remindMe));
+//     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe));
 //     history.push('/');
 //   } catch (error) {
 //     dispatch(callFailure(error));
@@ -135,81 +124,68 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
 // };
 
 export const getUserRequest = () => async dispatch => {
-  dispatch(callRequest());
+  dispatch(callRequest())
   try {
-    const res = await getUser();
-    dispatch(getUserSuccess(res.data.data, res.data.status));
+    const res = await getUser()
+    dispatch(getUserSuccess(res.data.data))
   } catch (error) {
-    console.log('error', error);
-    dispatch(callFailure(error));
+    dispatch(callFailure(error))
   }
-};
+}
 
-export const userLogout = (...args) => async (
-  dispatch,
-  _getState,
-  { history }
-) => {
-  dispatch(logout());
-  history.push('/login');
-};
+export const userLogout = (...args) => async (dispatch, _getState, { history }) => {
+  dispatch(logout())
+  history.push('/login')
+}
 
 export const fetchAdverts = params => async dispatch => {
-  dispatch(callRequest());
+  dispatch(callRequest())
   try {
-    const res = await filterAdverts(params);
-    dispatch(fetchAdvertsSuccess(res.data.data, res.data.status));
+    const res = await filterAdverts(params)
+    dispatch(fetchAdvertsSuccess(res.data.data))
   } catch (error) {
-    dispatch(callFailure(error));
+    dispatch(callFailure(error))
   }
-};
+}
 
 export const fetchAdvertById = advertId => async dispatch => {
-  dispatch(callRequest());
+  dispatch(callRequest())
   try {
-    const res = await getAdvertById(advertId);
-    dispatch(fetchAdvertSuccess(res.data.data, res.data.status));
+    const res = await getAdvertById(advertId)
+    dispatch(fetchAdvertSuccess(res.data.data))
   } catch (error) {
-    dispatch(callFailure(error));
+    dispatch(callFailure(error))
   }
-};
+}
 
-// export const updateAdvert = (advert, advertId) => async (
-//   dispatch,
-//   _getState,
-//   { history }
-// ) => {
-//   dispatch(callRequest());
-//   try {
-//     const res = await updateAd(advert, advertId);
-//     dispatch(updateAdvertsSuccess(res.data.data, res.data.status));
-//     setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000);
-//   } catch (error) {
-//     dispatch(callFailure(error));
-//   }
-// };
+export const updateAdvert = (advert, advertId) => async (dispatch, _getState, { history }) => {
+  dispatch(callRequest())
+  try {
+    const res = await updateAd(advert, advertId)
+    dispatch(fetchAdvertSuccess(res.data.data))
+    setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000)
+  } catch (error) {
+    dispatch(callFailure(error))
+  }
+}
 
-// export const createAdvert = advert => async (
-//   dispatch,
-//   _getState,
-//   { history }
-// ) => {
-//   dispatch(callRequest());
-//   try {
-//     const res = await createAd(advert);
-//     dispatch(createAdvertsSuccess(res.data.data, res.data.status));
-//     setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000);
-//   } catch (error) {
-//     dispatch(callFailure(error));
-//   }
-// };
+export const createAdvert = advert => async (dispatch, _getState, { history }) => {
+  dispatch(callRequest())
+  try {
+    const res = await createAd(advert)
+    dispatch(fetchAdvertSuccess(res.data.data))
+    setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000)
+  } catch (error) {
+    dispatch(callFailure(error))
+  }
+}
 
 export const loadTags = () => async dispatch => {
-  dispatch(callRequest());
+  dispatch(callRequest())
   try {
-    const res = await getTags();
-    dispatch(loadTagsSuccess(res.data.data, res.data.status));
+    const res = await getTags()
+    dispatch(loadTagsSuccess(res.data.data))
   } catch (error) {
-    dispatch(callFailure(error));
+    dispatch(callFailure(error))
   }
-};
+}
