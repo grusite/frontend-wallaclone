@@ -71,11 +71,16 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Login({ t, userTraditionalLogin }) {
+export default function Login({ t, ui, history, userTraditionalLogin }) {
   const classes = useStyles()
 
   const [statusMessage, setStatusMessage] = useState('')
   const [showPassword, setShowPassword] = React.useState(false)
+
+  const goToRegister = event => {
+    event.preventDefault()
+    history.push('/register')
+  }
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
@@ -198,7 +203,7 @@ export default function Login({ t, userTraditionalLogin }) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link onClick={goToRegister} href="#" variant="body2">
                   {t('noAccount')}
                 </Link>
               </Grid>

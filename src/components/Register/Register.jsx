@@ -36,9 +36,14 @@ function Copyright() {
   )
 }
 
-export default function Register({ t, userRegister }) {
+export default function Register({ t, ui, history, userRegister }) {
   const [statusMessage, setStatusMessage] = useState('')
   const [showPassword, setShowPassword] = React.useState(false)
+
+  const goToLogin = event => {
+    event.preventDefault()
+    history.push('/login')
+  }
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
@@ -153,7 +158,7 @@ export default function Register({ t, userRegister }) {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link onClick={goToLogin} href="#" variant="body2">
                 {t('yesAccount')}
               </Link>
             </Grid>

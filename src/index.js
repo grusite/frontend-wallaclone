@@ -5,6 +5,7 @@ import { createBrowserHistory } from 'history'
 import { configureStore } from './store'
 import storage from './utils/storage'
 import { getUserRequest } from './store/actions'
+import { isUserRegistered } from './store/selectors'
 import * as TYPES from './store/actionTypes'
 
 // import './index.css'
@@ -41,11 +42,12 @@ store.subscribe(() => {
   if (lastAction.type === TYPES.LOGOUT) {
     localStorage.clear()
   }
-  renderApp({ store, history })
 })
 
-// loads user in every reload
-store.dispatch(getUserRequest())
+// loads user in every reload if registered
+if (isUserRegistered(store.getState())) store.dispatch(getUserRequest())
+
+renderApp({ store, history })
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
