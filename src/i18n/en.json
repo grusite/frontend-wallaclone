@@ -1,12 +1,16 @@
 {
-    "register": "Register",
-    "signUp": "Sign Up",
-    "logIn": "Log In",
-    "login": "Login",
-    "labelName": "Name",
-    "labelEmail": "Email",
-    "labelPassword": "Password",
-    "labelConfirmPassword": "Confirm password",
-    "remindMe": "Keep me logged in",
-    "statusMessage": "Please, fill out all fields"
+  "register": "Register",
+  "signUp": "Sign Up",
+  "logIn": "Log In",
+  "login": "Login",
+  "labelName": "Name",
+  "labelEmail": "Email Address",
+  "labelPassword": "Password",
+  "labelConfirmPassword": "Confirm password",
+  "remindMe": "Remember me",
+  "statusMessage": "Please, fill out all fields",
+  "copyright": "Copyright © ",
+  "forgotPassword": "Forgot password?",
+  "noAccount": "Don't have an account? Sign Up",
+  "yesAccount": "Already have an account? Sign in"
 }

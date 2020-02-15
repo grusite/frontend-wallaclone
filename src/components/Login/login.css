@@ -2,35 +2,47 @@ body {
   background-color: white;
 }
 
+.root {
+  height: '100vh';
+}
+
 .paper {
-  margin-top: 64px;
+  margin-top: 64px 32px; /* theme.spacing(8, 4) */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.image {
+  background-image: 'url(https://source.unsplash.com/random)';
+  background-repeat: 'no-repeat';
+  background-color: 'black';
+  background-size: 'cover';
+  background-position: 'center';
+}
+
 #avatar-no-material,
 .avatar {
-  margin: 8px;
+  margin: 8px; /* theme.spacing(1) */
   background-color: rgb(220, 0, 78);
 }
 
 .form {
   width: '100%';
-  margin-top: 24px;
+  margin-top: 8px;
 }
 
 .formControl {
-  margin: 8px;
+  margin: 8px; /* theme.spacing(1) */
   min-width: 120;
   width: 100%;
 }
 
 #submit-no-material,
 .submit {
-  margin: 24px 0px 16px;
+  margin: 24px 0px 16px; /* theme.spacing(3, 0, 2) */
 }
 
 .margin {
-  margin: 8px;
+  margin: 8px; /* theme.spacing(1) */
 }

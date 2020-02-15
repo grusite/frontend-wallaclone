@@ -1,52 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import Visibility from '@material-ui/icons/Visibility';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import MySnackbarContentWrapper from '../StatusMessages/StatusMessages';
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import FormControl from '@material-ui/core/FormControl'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
+import InputLabel from '@material-ui/core/InputLabel'
+import Visibility from '@material-ui/icons/Visibility'
+import IconButton from '@material-ui/core/IconButton'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Link from '@material-ui/core/Link'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
+import MySnackbarContentWrapper from '../StatusMessages/StatusMessages'
 
-import Form, { Input } from '../Form';
+import Form, { Input } from '../Form'
 
-import './register.css';
+import './register.css'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '} {new Date().getFullYear()}
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Wallaclone
+      </Link>{' '}
+      {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
 export default function Register({ t, userRegister }) {
-  const [statusMessage, setStatusMessage] = useState('');
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [statusMessage, setStatusMessage] = useState('')
+  const [showPassword, setShowPassword] = React.useState(false)
 
   const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   const handleMouseDownPassword = event => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   const handleSubmit = event => {
-    const { name, email, password } = event;
+    const { name, email, password } = event
     if (name && email && password) {
-      userRegister(name, email, password);
+      userRegister(name, email, password)
     } else {
       setStatusMessage(
         <MySnackbarContentWrapper
@@ -55,13 +60,13 @@ export default function Register({ t, userRegister }) {
           className="margin"
           message={t('statusMessage')}
         />
-      );
+      )
     }
-  };
+  }
 
   const handleClose = () => {
-    setStatusMessage('');
-  };
+    setStatusMessage('')
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -79,7 +84,7 @@ export default function Register({ t, userRegister }) {
           initialValue={{
             name: '',
             email: '',
-            password: ''
+            password: '',
           }}
           onSubmit={handleSubmit}
         >
@@ -110,9 +115,7 @@ export default function Register({ t, userRegister }) {
             </Grid>
             <Grid item xs={12}>
               <FormControl required fullWidth variant="outlined">
-                <InputLabel htmlFor="outlined-adornment-password">
-                  {t('labelPassword')}
-                </InputLabel>
+                <InputLabel htmlFor="outlined-adornment-password">{t('labelPassword')}</InputLabel>
                 <Input
                   id="outlined-adornment-password"
                   type={showPassword ? 'text' : 'password'}
@@ -148,11 +151,18 @@ export default function Register({ t, userRegister }) {
           >
             {t('register')}
           </Button>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="#" variant="body2">
+                {t('yesAccount')}
+              </Link>
+            </Grid>
+          </Grid>
         </Form>
       </div>
       <Box mt={5}>
         <Copyright />
       </Box>
     </Container>
-  );
+  )
 }
