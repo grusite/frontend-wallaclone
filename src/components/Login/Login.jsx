@@ -143,6 +143,11 @@ export default function Login({ t, ui, history, enqueueSnackbar, userTraditional
     history.push('/forgot-password')
   }
 
+  const goToResendEmail = async event => {
+    event.preventDefault()
+    history.push('/resend-email')
+  }
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
@@ -262,7 +267,11 @@ export default function Login({ t, ui, history, enqueueSnackbar, userTraditional
                 <Link onClick={goToForgotPassword} href="#" variant="body2">
                   {t('forgotPassword')}
                 </Link>
+                <Link onClick={goToResendEmail} href="#" variant="body2">
+                  {t('resendEmail')}
+                </Link>
               </Grid>
+              <Grid item xs></Grid>
               <Grid item>
                 <Link onClick={goToRegister} href="#" variant="body2">
                   {t('noAccount')}
