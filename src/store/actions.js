@@ -76,7 +76,9 @@ export const userRegister = (name, email, password) => async (dispatch, _getStat
   try {
     await register({ name, email, password })
     dispatch(callSuccess())
-    history.push('/login')
+    setTimeout(() => {
+      history.push('/login')
+    }, 5000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -87,7 +89,9 @@ export const userVerifyRegister = token => async (dispatch, _getState, { history
   try {
     await verifyRegister({ token })
     dispatch(callSuccess())
-    history.push('/login')
+    setTimeout(() => {
+      history.push('/login')
+    }, 1000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -102,7 +106,9 @@ export const userVerifyResendRegister = (email, password) => async (
   try {
     await verifyResendRegister({ email, password })
     dispatch(callSuccess())
-    history.push('/login')
+    setTimeout(() => {
+      history.push('/login')
+    }, 2000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -113,7 +119,9 @@ export const userForgotPassword = email => async (dispatch, _getState, { history
   try {
     await forgotPassword({ email })
     dispatch(callSuccess())
-    history.push('/login')
+    setTimeout(() => {
+      history.push('/login')
+    }, 1000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -124,7 +132,9 @@ export const userChangePassword = (token, password) => async (dispatch, _getStat
   try {
     await changePassword({ token, password })
     dispatch(callSuccess())
-    history.push('/login')
+    setTimeout(() => {
+      history.push('/login')
+    }, 2000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -139,7 +149,9 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
   try {
     const res = await traditionalLogin({ email, password })
     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
-    history.push('/')
+    setTimeout(() => {
+      history.push('/')
+    }, 1000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -150,30 +162,34 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
 //   _getState,
 //   { history }
 // ) => {
-//   dispatch(callRequest());
+//   dispatch(callRequest())
 //   try {
-//     const res = await googleLogin(email, password);
-//     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe));
-//     history.push('/');
+//     const res = await googleLogin(email, password)
+//     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
+//     setTimeout(() => {
+//       history.push('/')
+//     }, 1000)
 //   } catch (error) {
-//     dispatch(callFailure(error.response.data.error));
+//     dispatch(callFailure(error.response.data.error))
 //   }
-// };
+// }
 
 // export const userFacebookLogin = (email, password, remindMe) => async (
 //   dispatch,
 //   _getState,
 //   { history }
 // ) => {
-//   dispatch(callRequest());
+//   dispatch(callRequest())
 //   try {
-//     const res = await facebookLogin(email, password);
-//     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe));
-//     history.push('/');
+//     const res = await facebookLogin(email, password)
+//     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
+//     setTimeout(() => {
+//       history.push('/')
+//     }, 1000)
 //   } catch (error) {
-//     dispatch(callFailure(error.response.data.error));
+//     dispatch(callFailure(error.response.data.error))
 //   }
-// };
+// }
 
 export const getUserRequest = () => async dispatch => {
   dispatch(callRequest())
@@ -215,7 +231,7 @@ export const updateAdvert = (advert, advertId) => async (dispatch, _getState, { 
   try {
     const res = await updateAd(advert, advertId)
     dispatch(fetchAdvertSuccess(res.data.data))
-    setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000)
+    setTimeout(() => history.push('/advert/'`${res.data._id}`), 1000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -226,7 +242,7 @@ export const createAdvert = advert => async (dispatch, _getState, { history }) =
   try {
     const res = await createAd(advert)
     dispatch(fetchAdvertSuccess(res.data.data))
-    setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000)
+    setTimeout(() => history.push('/advert/'`${res.data._id}`), 1000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }

@@ -17,6 +17,7 @@ import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import Form, { Input } from '../Form'
 
@@ -37,9 +38,22 @@ function Copyright() {
 
 export default function Register({ t, ui, history, enqueueSnackbar, userRegister }) {
   const [showPassword, setShowPassword] = useState(false)
-  const error = ui.error
+  const { error, status } = ui
 
-  /* eslint-disable */
+  /* eslint-disable*/
+  // Error control
+  useEffect(() => {
+    if (status) {
+      enqueueSnackbar(t('registerSuccessful'), {
+        variant: 'success',
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      })
+    }
+  }, [status])
+
   // Error control
   useEffect(() => {
     if (error) {
@@ -180,8 +194,10 @@ export default function Register({ t, ui, history, enqueueSnackbar, userRegister
             fullWidth
             variant="contained"
             color="primary"
+            disabled={ui.isFetching}
           >
             {t('register')}
+            {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>

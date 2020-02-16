@@ -16,6 +16,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import FormControl from '@material-ui/core/FormControl'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import Form, { Input } from '../Form'
 
@@ -42,12 +43,23 @@ export default function ChangePassword({
   userChangePassword,
   match,
 }) {
-  const [isSending, setIsSending] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-
-  const error = ui.error
+  const { error, status } = ui
 
   /* eslint-disable*/
+  // Error control
+  useEffect(() => {
+    if (status) {
+      enqueueSnackbar(t('passwordChangedSuccessful'), {
+        variant: 'success',
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      })
+    }
+  }, [status])
+
   // Error control
   useEffect(() => {
     if (error) {
@@ -56,15 +68,15 @@ export default function ChangePassword({
           variant: 'error',
           anchorOrigin: {
             vertical: 'bottom',
-            horizontal: 'right',
+            horizontal: 'center',
           },
         })
       } else if (error.data.reason === 'invalidforgotPasswordToken') {
-        enqueueSnackbar(t('invalidforgotPasswordToken'), {
+        enqueueSnackbar(t('invalidToken'), {
           variant: 'error',
           anchorOrigin: {
             vertical: 'bottom',
-            horizontal: 'right',
+            horizontal: 'center',
           },
         })
       } else if (error.data) {
@@ -72,7 +84,7 @@ export default function ChangePassword({
           variant: 'error',
           anchorOrigin: {
             vertical: 'bottom',
-            horizontal: 'right',
+            horizontal: 'center',
           },
         })
       }
@@ -82,10 +94,7 @@ export default function ChangePassword({
   const handleSubmit = async event => {
     const { password } = event
     const token = match.params.token
-
-    setIsSending(true)
     await userChangePassword(token, password)
-    setIsSending(false)
   }
 
   const goToLogin = event => {
@@ -166,9 +175,10 @@ export default function ChangePassword({
             fullWidth
             variant="contained"
             color="primary"
-            disabled={isSending}
+            disabled={ui.isFetching}
           >
             {t('changePassword')}
+            {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>

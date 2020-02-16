@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import TextField from '@material-ui/core/TextField'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
@@ -11,10 +10,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import CircularProgress from '@material-ui/core/CircularProgress'
-
-import Form, { Input } from '../Form'
-
-import './forgotPassword.css'
 
 function Copyright() {
   return (
@@ -29,14 +24,21 @@ function Copyright() {
   )
 }
 
-export default function ForgotPassword({ t, enqueueSnackbar, ui, history, userForgotPassword }) {
+export default function ChangePassword({
+  t,
+  enqueueSnackbar,
+  ui,
+  history,
+  userVerifyRegister,
+  match,
+}) {
   const { error, status } = ui
 
   /* eslint-disable*/
   // Error control
   useEffect(() => {
     if (status) {
-      enqueueSnackbar(t('emailSentSuccessful'), {
+      enqueueSnackbar(t('emailVerifiedSuccessful'), {
         variant: 'success',
         anchorOrigin: {
           vertical: 'bottom',
@@ -57,6 +59,22 @@ export default function ForgotPassword({ t, enqueueSnackbar, ui, history, userFo
             horizontal: 'center',
           },
         })
+      } else if (error.data.reason === 'userVerified') {
+        enqueueSnackbar(t('userVerified'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
+        })
+      } else if (error.data.reason === 'invalidVerifyEmailToken') {
+        enqueueSnackbar(t('invalidToken'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
+        })
       } else if (error.data) {
         enqueueSnackbar(t('genericError'), {
           variant: 'error',
@@ -66,17 +84,30 @@ export default function ForgotPassword({ t, enqueueSnackbar, ui, history, userFo
           },
         })
       }
+    } else if (ui.status) {
+      enqueueSnackbar(t('All good!'), {
+        variant: 'success',
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      })
     }
   }, [error])
-
-  const handleSubmit = async event => {
-    const { email } = event
-    await userForgotPassword(email)
-  }
 
   const goToLogin = event => {
     event.preventDefault()
     history.push('/login')
+  }
+
+  const goToResendEmail = async event => {
+    event.preventDefault()
+    history.push('/resend-email')
+  }
+
+  const handleSubmit = async () => {
+    const token = match.params.token
+    await userVerifyRegister(token)
   }
 
   return (
@@ -87,64 +118,34 @@ export default function ForgotPassword({ t, enqueueSnackbar, ui, history, userFo
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          {t('forgotPassword')}
+          {t('verifyEmail')}
         </Typography>
         <Typography variant="body2" align="center">
-          {t('forgotPasswordHeader')}
+          {t('verifyEmailHeader')}
         </Typography>
-        <Form
-          className="form"
-          noValidate
-          validate={({ email }) => {
-            if (!email) {
-              return t('fillAllFieldsMessage')
-            }
-          }}
-          initialValue={{
-            email: '',
-          }}
-          onSubmit={handleSubmit}
-          onError={error =>
-            enqueueSnackbar(error, {
-              variant: 'error',
-              anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'center',
-              },
-            })
-          }
+        <Button
+          id="submit-no-material"
+          onClick={handleSubmit}
+          fullWidth
+          variant="contained"
+          color="primary"
+          disabled={ui.isFetching}
         >
-          <Input
-            variant="outlined"
-            required
-            fullWidth
-            id="email"
-            label={t('labelEmail')}
-            name="email"
-            autoComplete="lname"
-            component={TextField}
-            disabled={ui.isFetching}
-          />
-          <Button
-            id="submit-no-material"
-            type="submit"
-            className="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            disabled={ui.isFetching}
-          >
-            {t('sendEmail')}
-            {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link onClick={goToLogin} href="#" variant="body2">
-                {t('rememberPassword')}
-              </Link>
-            </Grid>
+          {t('verifyEmail')}
+          {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            <Link onClick={goToLogin} href="#" variant="body2">
+              {t('login')}
+            </Link>
           </Grid>
-        </Form>
+          <Grid item>
+            <Link onClick={goToResendEmail} href="#" variant="body2">
+              {t('resendEmail')}
+            </Link>
+          </Grid>
+        </Grid>
       </div>
       <Box mt={5}>
         <Copyright />

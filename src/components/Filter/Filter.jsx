@@ -58,7 +58,6 @@ class Filter extends React.Component {
 
   render() {
     const { type, name, description, price, tags, tagSelected } = this.state
-    console.log('tags', tags)
 
     return (
       <>

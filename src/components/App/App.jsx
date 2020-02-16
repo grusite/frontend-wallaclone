@@ -8,6 +8,7 @@ import Register from '../Register'
 import Login from '../Login'
 import ForgotPassword from '../ForgotPassword'
 import ChangePassword from '../ChangePassword'
+import VerifyRegister from '../VerifyRegister'
 import AdvertDetail from '../AdvertDetail'
 import CreateUpdateAdvert from '../CreateUpdateAdvert'
 import Error404 from '../Error404'
@@ -40,6 +41,12 @@ const App = () => (
         path="/change-password/:token"
         render={props =>
           isUserRegistered(store.getState()) ? <Redirect to="/" /> : <ChangePassword {...props} />
+        }
+      />
+      <Route
+        path="/confirm/:token"
+        render={props =>
+          isUserRegistered(store.getState()) ? <Redirect to="/" /> : <VerifyRegister {...props} />
         }
       />
       <PrivateRoute path="/advert/:id" component={AdvertDetail} />

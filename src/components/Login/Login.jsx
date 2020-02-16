@@ -19,6 +19,7 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles'
 import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons'
 
@@ -77,10 +78,23 @@ export default function Login({ t, ui, history, enqueueSnackbar, userTraditional
   const classes = useStyles()
 
   const [showPassword, setShowPassword] = useState(false)
-  const error = ui.error
+  const { error, status } = ui
 
   /* eslint-disable*/
   // Error control
+  useEffect(() => {
+    if (status) {
+      enqueueSnackbar(t('loginSuccessful'), {
+        variant: 'success',
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      })
+    }
+  }, [status])
+
+  /* eslint-disable*/
   useEffect(() => {
     if (error) {
       if (error.data.reason === 'userNotVerified') {
@@ -154,7 +168,6 @@ export default function Login({ t, ui, history, enqueueSnackbar, userTraditional
           <Typography component="h1" variant="h5">
             {t('logIn')}
           </Typography>
-          {console.log('ui', ui)}
           <Form
             className={classes.form}
             noValidate
@@ -239,8 +252,10 @@ export default function Login({ t, ui, history, enqueueSnackbar, userTraditional
               fullWidth
               variant="contained"
               color="primary"
+              disabled={ui.isFetching}
             >
               {t('login')}
+              {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
             </Button>
             <Grid container>
               <Grid item xs>

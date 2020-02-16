@@ -15,6 +15,10 @@
   "forgotPasswordHeader": "Enter your email address below and we'll send you a link to reset your password.",
   "noAccount": "Don't have an account? Sign Up",
   "yesAccount": "Already have an account? Sign in",
+  "verifyEmail": "Verify your email",
+  "verifyEmailHeader": "You are almost ready! Simply click the button to verify your email address",
+  "resendEmail": "Resend email confirmation",
+  "userVerified": "The user is already verified. Please, go to login page",
   "userNotVerified": "User not verified. Please check your email",
   "userNotFound": "The user is not registered",
   "invalidPassword": "Incorrect password!",
@@ -23,7 +27,12 @@
   "changePassword": "Change password",
   "userRegistered": "The user is already registered",
   "invalidMailData": "The mail format is not valid",
-  "invalidforgotPasswordToken": "The token provided is invalid",
+  "invalidToken": "The token provided is invalid",
   "genericError": "An error ocurred. Please try again",
-  "sendEmail": "Send Email"
+  "sendEmail": "Send Email",
+  "loginSuccessful": "Login Successful",
+  "registerSuccessful": "Email sent to your email. Please check your inbox.",
+  "passwordChangedSuccessful": "Your password has been changed",
+  "emailSentSuccessful": "Email sent successfully",
+  "emailVerifiedSuccessful": "Your email has been verified"
 }
