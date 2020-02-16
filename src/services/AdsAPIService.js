@@ -14,18 +14,6 @@ export const traditionalLogin = async payload => {
   })
 }
 
-export const register = async payload => {
-  return await client({
-    method: 'post',
-    url: '/user/register',
-    data: {
-      name: payload.name,
-      email: payload.email,
-      password: payload.password,
-    },
-  })
-}
-
 export const googleLogin = async () => {
   await window.gapi.auth2.getAuthInstance().signIn()
   const user = window.gapi.auth2.getAuthInstance().currentUser.get()
@@ -49,6 +37,60 @@ export const facebookLogin = async payload => {
       payload: {
         accessToken: payload.accessToken,
       },
+    },
+  })
+}
+
+export const register = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/register',
+    data: {
+      name: payload.name,
+      email: payload.email,
+      password: payload.password,
+    },
+  })
+}
+
+export const verifyRegister = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/register/verify',
+    data: {
+      token: payload.token,
+    },
+  })
+}
+
+export const verifyResendRegister = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/register/verify-resend',
+    data: {
+      email: payload.email,
+      password: payload.password,
+    },
+  })
+}
+
+export const forgotPassword = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/register/forgot-password',
+    data: {
+      email: payload.email,
+    },
+  })
+}
+
+export const changePassword = async payload => {
+  return await client({
+    method: 'post',
+    url: '/user/register/change-password',
+    data: {
+      token: payload.token,
+      password: payload.password,
     },
   })
 }

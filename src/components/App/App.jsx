@@ -6,6 +6,8 @@ import PrivateRoute from '../PrivateRoute'
 import Home from '../Home'
 import Register from '../Register'
 import Login from '../Login'
+import ForgotPassword from '../ForgotPassword'
+import ChangePassword from '../ChangePassword'
 import AdvertDetail from '../AdvertDetail'
 import CreateUpdateAdvert from '../CreateUpdateAdvert'
 import Error404 from '../Error404'
@@ -26,6 +28,18 @@ const App = () => (
         path="/login"
         render={props =>
           isUserRegistered(store.getState()) ? <Redirect to="/" /> : <Login {...props} />
+        }
+      />
+      <Route
+        path="/forgot-password"
+        render={props =>
+          isUserRegistered(store.getState()) ? <Redirect to="/" /> : <ForgotPassword {...props} />
+        }
+      />
+      <Route
+        path="/change-password/:token"
+        render={props =>
+          isUserRegistered(store.getState()) ? <Redirect to="/" /> : <ChangePassword {...props} />
         }
       />
       <PrivateRoute path="/advert/:id" component={AdvertDetail} />

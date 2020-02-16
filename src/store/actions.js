@@ -1,6 +1,10 @@
 import * as TYPES from './actionTypes'
 import {
   register,
+  verifyRegister,
+  verifyResendRegister,
+  forgotPassword,
+  changePassword,
   traditionalLogin,
   getUser,
   getTags,
@@ -14,7 +18,7 @@ export const callRequest = () => ({
   type: TYPES.CALL_REQUEST,
 })
 
-export const callSuccess = status => ({
+export const callSuccess = () => ({
   type: TYPES.CALL_SUCCESS,
 })
 
@@ -70,8 +74,56 @@ export const fetchAdvertSuccess = advert => ({
 export const userRegister = (name, email, password) => async (dispatch, _getState, { history }) => {
   dispatch(callRequest())
   try {
-    const res = await register({ name, email, password })
-    dispatch(callSuccess(res.data.status))
+    await register({ name, email, password })
+    dispatch(callSuccess())
+    history.push('/login')
+  } catch (error) {
+    dispatch(callFailure(error.response.data.error))
+  }
+}
+
+export const userVerifyRegister = token => async (dispatch, _getState, { history }) => {
+  dispatch(callRequest())
+  try {
+    await verifyRegister({ token })
+    dispatch(callSuccess())
+    history.push('/login')
+  } catch (error) {
+    dispatch(callFailure(error.response.data.error))
+  }
+}
+
+export const userVerifyResendRegister = (email, password) => async (
+  dispatch,
+  _getState,
+  { history }
+) => {
+  dispatch(callRequest())
+  try {
+    await verifyResendRegister({ email, password })
+    dispatch(callSuccess())
+    history.push('/login')
+  } catch (error) {
+    dispatch(callFailure(error.response.data.error))
+  }
+}
+
+export const userForgotPassword = email => async (dispatch, _getState, { history }) => {
+  dispatch(callRequest())
+  try {
+    await forgotPassword({ email })
+    dispatch(callSuccess())
+    history.push('/login')
+  } catch (error) {
+    dispatch(callFailure(error.response.data.error))
+  }
+}
+
+export const userChangePassword = (token, password) => async (dispatch, _getState, { history }) => {
+  dispatch(callRequest())
+  try {
+    await changePassword({ token, password })
+    dispatch(callSuccess())
     history.push('/login')
   } catch (error) {
     dispatch(callFailure(error.response.data.error))

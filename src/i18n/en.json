@@ -10,13 +10,20 @@
   "remindMe": "Remember me",
   "fillAllFieldsMessage": "Please, fill out all fields",
   "copyright": "Copyright © ",
-  "forgotPassword": "Forgot password?",
+  "forgotPassword": "Forgot your password?",
+  "rememberPassword": "Remember your password?",
+  "forgotPasswordHeader": "Enter your email address below and we'll send you a link to reset your password.",
   "noAccount": "Don't have an account? Sign Up",
   "yesAccount": "Already have an account? Sign in",
   "userNotVerified": "User not verified. Please check your email",
   "userNotFound": "The user is not registered",
   "invalidPassword": "Incorrect password!",
+  "resetPassword": "Reset your password",
+  "resetPasswordHeader": "Enter your new password",
+  "changePassword": "Change password",
   "userRegistered": "The user is already registered",
   "invalidMailData": "The mail format is not valid",
-  "genericError": "An error ocurred. Please try again"
+  "invalidforgotPasswordToken": "The token provided is invalid",
+  "genericError": "An error ocurred. Please try again",
+  "sendEmail": "Send Email"
 }

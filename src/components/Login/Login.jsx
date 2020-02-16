@@ -124,6 +124,11 @@ export default function Login({ t, ui, history, enqueueSnackbar, userTraditional
     history.push('/register')
   }
 
+  const goToForgotPassword = event => {
+    event.preventDefault()
+    history.push('/forgot-password')
+  }
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
@@ -239,7 +244,7 @@ export default function Login({ t, ui, history, enqueueSnackbar, userTraditional
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link onClick={goToForgotPassword} href="#" variant="body2">
                   {t('forgotPassword')}
                 </Link>
               </Grid>
