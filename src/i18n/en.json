@@ -8,9 +8,15 @@
   "labelPassword": "Password",
   "labelConfirmPassword": "Confirm password",
   "remindMe": "Remember me",
-  "statusMessage": "Please, fill out all fields",
+  "fillAllFieldsMessage": "Please, fill out all fields",
   "copyright": "Copyright © ",
   "forgotPassword": "Forgot password?",
   "noAccount": "Don't have an account? Sign Up",
-  "yesAccount": "Already have an account? Sign in"
+  "yesAccount": "Already have an account? Sign in",
+  "userNotVerified": "User not verified. Please check your email",
+  "userNotFound": "The user is not registered",
+  "invalidPassword": "Incorrect password!",
+  "userRegistered": "The user is already registered",
+  "invalidMailData": "The mail format is not valid",
+  "genericError": "An error ocurred. Please try again"
 }

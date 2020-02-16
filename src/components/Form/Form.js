@@ -1,19 +1,15 @@
-import React, { useState, useCallback, createContext } from 'react';
+import React, { useState, useCallback, createContext } from 'react'
 
 // Creamos un contexto para el formulario
-export const formContext = createContext();
-export const { Provider: FormProvider, Consumer: FormConsumer } = formContext;
+export const formContext = createContext()
+export const { Provider: FormProvider, Consumer: FormConsumer } = formContext
 
 // Hoc para conectar cualquier componente con el contexto del formulario
 // Se puede conectar tambien con useContext(formContext)
 export function withFormContext(WrappedComponent) {
   return function(props) {
-    return (
-      <FormConsumer>
-        {value => <WrappedComponent {...props} {...value} />}
-      </FormConsumer>
-    );
-  };
+    return <FormConsumer>{value => <WrappedComponent {...props} {...value} />}</FormConsumer>
+  }
 }
 
 // Componente Form
@@ -23,29 +19,35 @@ export function withFormContext(WrappedComponent) {
 export default function Form({
   initialValue = {},
   onSubmit = () => {},
+  validate = () => null,
+  onError = () => {},
   children,
   ...props
 }) {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initialValue)
 
   const handleChange = useCallback(change => {
     setValue(prevValue => ({
       ...prevValue,
-      ...change
-    }));
-  }, []);
+      ...change,
+    }))
+  }, [])
 
   const handleSubmit = useCallback(
     event => {
-      event.preventDefault();
-      onSubmit(value);
+      event.preventDefault()
+      const error = validate(value)
+      if (error) {
+        return onError(error)
+      }
+      onSubmit(value)
     },
-    [onSubmit, value]
-  );
+    [onError, onSubmit, validate, value]
+  )
 
   return (
     <form {...props} onSubmit={handleSubmit}>
       <FormProvider value={{ value, handleChange }}>{children}</FormProvider>
     </form>
-  );
+  )
 }

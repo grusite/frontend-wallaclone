@@ -74,7 +74,7 @@ export const userRegister = (name, email, password) => async (dispatch, _getStat
     dispatch(callSuccess(res.data.status))
     history.push('/login')
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -89,7 +89,7 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
     history.push('/')
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -104,7 +104,7 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
 //     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe));
 //     history.push('/');
 //   } catch (error) {
-//     dispatch(callFailure(error));
+//     dispatch(callFailure(error.response.data.error));
 //   }
 // };
 
@@ -119,7 +119,7 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
 //     dispatch(saveSessionSuccess(res.data.data.bearer, remindMe));
 //     history.push('/');
 //   } catch (error) {
-//     dispatch(callFailure(error));
+//     dispatch(callFailure(error.response.data.error));
 //   }
 // };
 
@@ -129,7 +129,7 @@ export const getUserRequest = () => async dispatch => {
     const res = await getUser()
     dispatch(getUserSuccess(res.data.data))
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -144,7 +144,7 @@ export const fetchAdverts = params => async dispatch => {
     const res = await filterAdverts(params)
     dispatch(fetchAdvertsSuccess(res.data.data))
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -154,7 +154,7 @@ export const fetchAdvertById = advertId => async dispatch => {
     const res = await getAdvertById(advertId)
     dispatch(fetchAdvertSuccess(res.data.data))
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -165,7 +165,7 @@ export const updateAdvert = (advert, advertId) => async (dispatch, _getState, { 
     dispatch(fetchAdvertSuccess(res.data.data))
     setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000)
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -176,7 +176,7 @@ export const createAdvert = advert => async (dispatch, _getState, { history }) =
     dispatch(fetchAdvertSuccess(res.data.data))
     setTimeout(() => history.push('/advert/'`${res.data._id}`), 2000)
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -186,6 +186,6 @@ export const loadTags = () => async dispatch => {
     const res = await getTags()
     dispatch(loadTagsSuccess(res.data.data))
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }

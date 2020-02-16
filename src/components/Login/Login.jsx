@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -20,7 +20,6 @@ import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
-import MySnackbarContentWrapper from '../StatusMessages'
 import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons'
 
 import Form, { Input } from '../Form'
@@ -69,13 +68,56 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  margin: {
+    margin: theme.spacing(1),
+  },
 }))
 
-export default function Login({ t, ui, history, userTraditionalLogin }) {
+export default function Login({ t, ui, history, enqueueSnackbar, userTraditionalLogin }) {
   const classes = useStyles()
 
-  const [statusMessage, setStatusMessage] = useState('')
-  const [showPassword, setShowPassword] = React.useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const error = ui.error
+
+  /* eslint-disable*/
+  // Error control
+  useEffect(() => {
+    if (error) {
+      if (error.data.reason === 'userNotVerified') {
+        enqueueSnackbar(t('userNotVerified'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
+      } else if (error.data.reason === 'userNotFound') {
+        enqueueSnackbar(t('userNotFound'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
+      } else if (error.data.reason === 'invalidPassword') {
+        enqueueSnackbar(t('invalidPassword'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
+      } else if (error.data) {
+        enqueueSnackbar(t('genericError'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
+      }
+    }
+  }, [error])
 
   const goToRegister = event => {
     event.preventDefault()
@@ -90,24 +132,9 @@ export default function Login({ t, ui, history, userTraditionalLogin }) {
     event.preventDefault()
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     const { email, password, remindMe } = event
-    if (email && password) {
-      userTraditionalLogin(email, password, remindMe)
-    } else {
-      setStatusMessage(
-        <MySnackbarContentWrapper
-          onClose={handleClose}
-          variant="warning"
-          className="margin"
-          message={t('statusMessage')}
-        />
-      )
-    }
-  }
-
-  const handleClose = () => {
-    setStatusMessage('')
+    await userTraditionalLogin(email, password, remindMe)
   }
 
   return (
@@ -122,15 +149,30 @@ export default function Login({ t, ui, history, userTraditionalLogin }) {
           <Typography component="h1" variant="h5">
             {t('logIn')}
           </Typography>
+          {console.log('ui', ui)}
           <Form
             className={classes.form}
             noValidate
+            validate={({ email, password }) => {
+              if (!email || !password) {
+                return t('fillAllFieldsMessage')
+              }
+            }}
             initialValue={{
               email: '',
               password: '',
               remindMe: false,
             }}
             onSubmit={handleSubmit}
+            onError={error =>
+              enqueueSnackbar(error, {
+                variant: 'warning',
+                anchorOrigin: {
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                },
+              })
+            }
           >
             <Input
               name="email"
@@ -173,7 +215,6 @@ export default function Login({ t, ui, history, userTraditionalLogin }) {
               label={t('remindMe')}
               component={FormControlLabel}
             />
-            {statusMessage}
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <FacebookLoginButton>

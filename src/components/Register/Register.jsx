@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -17,7 +17,6 @@ import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
-import MySnackbarContentWrapper from '../StatusMessages/StatusMessages'
 
 import Form, { Input } from '../Form'
 
@@ -36,9 +35,41 @@ function Copyright() {
   )
 }
 
-export default function Register({ t, ui, history, userRegister }) {
-  const [statusMessage, setStatusMessage] = useState('')
-  const [showPassword, setShowPassword] = React.useState(false)
+export default function Register({ t, ui, history, enqueueSnackbar, userRegister }) {
+  const [showPassword, setShowPassword] = useState(false)
+  const error = ui.error
+
+  /* eslint-disable */
+  // Error control
+  useEffect(() => {
+    if (error) {
+      if (error.data.reason === 'registered') {
+        enqueueSnackbar(t('userRegistered'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
+        })
+      } else if (error.code === 3001) {
+        enqueueSnackbar(t('invalidMailData'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
+        })
+      } else if (error.data) {
+        enqueueSnackbar(t('genericError'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center',
+          },
+        })
+      }
+    }
+  }, [error])
 
   const goToLogin = event => {
     event.preventDefault()
@@ -55,22 +86,7 @@ export default function Register({ t, ui, history, userRegister }) {
 
   const handleSubmit = event => {
     const { name, email, password } = event
-    if (name && email && password) {
-      userRegister(name, email, password)
-    } else {
-      setStatusMessage(
-        <MySnackbarContentWrapper
-          onClose={handleClose}
-          variant="warning"
-          className="margin"
-          message={t('statusMessage')}
-        />
-      )
-    }
-  }
-
-  const handleClose = () => {
-    setStatusMessage('')
+    userRegister(name, email, password)
   }
 
   return (
@@ -86,12 +102,26 @@ export default function Register({ t, ui, history, userRegister }) {
         <Form
           className="form"
           noValidate
+          validate={({ name, email, password }) => {
+            if (!name || !email || !password) {
+              return t('fillAllFieldsMessage')
+            }
+          }}
           initialValue={{
             name: '',
             email: '',
             password: '',
           }}
           onSubmit={handleSubmit}
+          onError={error =>
+            enqueueSnackbar(error, {
+              variant: 'error',
+              anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center',
+              },
+            })
+          }
         >
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -141,9 +171,6 @@ export default function Register({ t, ui, history, userRegister }) {
                   labelWidth={85}
                 />
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              {statusMessage}
             </Grid>
           </Grid>
           <Button

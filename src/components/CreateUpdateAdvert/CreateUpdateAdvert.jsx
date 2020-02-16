@@ -21,7 +21,6 @@ import Select from '@material-ui/core/Select'
 import InputAdornment from '@material-ui/core/InputAdornment'
 
 import NavBar from '../Navbar'
-import MySnackbarContentWrapper from '../StatusMessages'
 
 import './createUpdateAdvert.css'
 
@@ -165,34 +164,34 @@ class createUpdateAdvert extends React.Component {
 
     let statusMessage = ''
 
-    if (this.state.success) {
-      statusMessage = (
-        <MySnackbarContentWrapper
-          onClose={this.handleClose}
-          variant="success"
-          className="margin"
-          message="¡Todo correcto!"
-        />
-      )
-    } else if (this.state.infoMessage) {
-      statusMessage = (
-        <MySnackbarContentWrapper
-          onClose={this.handleClose}
-          variant="warning"
-          className="margin"
-          message="Debe rellenar los marcados con asterisco"
-        />
-      )
-    } else if (this.state.error) {
-      statusMessage = (
-        <MySnackbarContentWrapper
-          onClose={this.handleClose}
-          variant="error"
-          className="margin"
-          message="Ha ocurrido un error, intentelo más tarde"
-        />
-      )
-    }
+    // if (this.state.success) {
+    //   statusMessage = (
+    //     <MySnackbarContentWrapper
+    //       onClose={this.handleClose}
+    //       variant="success"
+    //       className="margin"
+    //       message="¡Todo correcto!"
+    //     />
+    //   )
+    // } else if (this.state.infoMessage) {
+    //   statusMessage = (
+    //     <MySnackbarContentWrapper
+    //       onClose={this.handleClose}
+    //       variant="warning"
+    //       className="margin"
+    //       message="Debe rellenar los marcados con asterisco"
+    //     />
+    //   )
+    // } else if (this.state.error) {
+    //   statusMessage = (
+    //     <MySnackbarContentWrapper
+    //       onClose={this.handleClose}
+    //       variant="error"
+    //       className="margin"
+    //       message="Ha ocurrido un error, intentelo más tarde"
+    //     />
+    //   )
+    // }
 
     return (
       <>
