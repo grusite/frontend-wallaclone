@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -106,7 +106,7 @@ export default function ForgotPassword({ t, enqueueSnackbar, ui, history, userFo
           onSubmit={handleSubmit}
           onError={error =>
             enqueueSnackbar(error, {
-              variant: 'error',
+              variant: 'warning',
               anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'center',

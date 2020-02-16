@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { withSnackbar } from 'notistack'
 
 import { compose } from '../../utils/compose'
-import ResendVerifyEmail from './ResendVerifyEmail'
+import VerifyResendEmail from './VerifyResendEmail'
 import withSession from '../../hocs/withSession'
 import withUi from '../../hocs/withUi'
 
@@ -13,4 +13,4 @@ export default compose(
   withUi,
   withTranslation(),
   withSnackbar
-)(ResendVerifyEmail)
+)(VerifyResendEmail)

@@ -23,6 +23,8 @@
   "userNotFound": "The user is not registered",
   "invalidPassword": "Incorrect password!",
   "resetPassword": "Reset your password",
+  "resendVerifyEmail": "Resend email",
+  "resendVerifyEmailHeader": "Introduce your email and password and we will send you another confirmation email",
   "resetPasswordHeader": "Enter your new password",
   "changePassword": "Change password",
   "userRegistered": "The user is already registered",
@@ -34,5 +36,6 @@
   "registerSuccessful": "Email sent to your email. Please check your inbox.",
   "passwordChangedSuccessful": "Your password has been changed",
   "emailSentSuccessful": "Email sent successfully",
-  "emailVerifiedSuccessful": "Your email has been verified"
+  "emailVerifiedSuccessful": "Your email has been verified",
+  "returnToLogin": "Return to login"
 }

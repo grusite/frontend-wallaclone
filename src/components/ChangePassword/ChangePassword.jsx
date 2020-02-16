@@ -137,7 +137,7 @@ export default function ChangePassword({
           onSubmit={handleSubmit}
           onError={error =>
             enqueueSnackbar(error, {
-              variant: 'error',
+              variant: 'warning',
               anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'center',

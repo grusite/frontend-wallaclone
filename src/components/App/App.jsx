@@ -9,6 +9,7 @@ import Login from '../Login'
 import ForgotPassword from '../ForgotPassword'
 import ChangePassword from '../ChangePassword'
 import VerifyRegister from '../VerifyRegister'
+import VerifyResendEmail from '../VerifyResendEmail'
 import AdvertDetail from '../AdvertDetail'
 import CreateUpdateAdvert from '../CreateUpdateAdvert'
 import Error404 from '../Error404'
@@ -47,6 +48,16 @@ const App = () => (
         path="/confirm/:token"
         render={props =>
           isUserRegistered(store.getState()) ? <Redirect to="/" /> : <VerifyRegister {...props} />
+        }
+      />
+      <Route
+        path="/resend-email"
+        render={props =>
+          isUserRegistered(store.getState()) ? (
+            <Redirect to="/" />
+          ) : (
+            <VerifyResendEmail {...props} />
+          )
         }
       />
       <PrivateRoute path="/advert/:id" component={AdvertDetail} />

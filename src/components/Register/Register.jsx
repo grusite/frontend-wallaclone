@@ -129,7 +129,7 @@ export default function Register({ t, ui, history, enqueueSnackbar, userRegister
           onSubmit={handleSubmit}
           onError={error =>
             enqueueSnackbar(error, {
-              variant: 'error',
+              variant: 'warning',
               anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'center',
