@@ -177,8 +177,16 @@ export default function Login({
     event.preventDefault();
   };
 
-  const responseGoogle = async response => {
+  const responseGoogle = response => {
     console.log(response);
+  };
+
+  const onClickGoogle = event => {
+    event.preventDefault();
+  };
+
+  const onClickFacebook = () => {
+    console.log('Clicked!');
   };
 
   const responseFacebook = response => {
@@ -274,9 +282,8 @@ export default function Login({
                 <FacebookLogin
                   appId={facebookId}
                   fields="name,email,picture"
-                  autoLoad={false}
-                  render={() => (
-                    <FacebookLoginButton>
+                  render={renderProps => (
+                    <FacebookLoginButton onClick={renderProps.onClick}>
                       <Typography variant="button">FACEBOOK</Typography>
                     </FacebookLoginButton>
                   )}
@@ -286,8 +293,8 @@ export default function Login({
               <Grid item xs={6}>
                 <GoogleLogin
                   clientId={googleId}
-                  render={() => (
-                    <GoogleLoginButton>
+                  render={renderProps => (
+                    <GoogleLoginButton onClick={renderProps.onClick}>
                       <Typography variant="button">GOOGLE</Typography>
                     </GoogleLoginButton>
                   )}
