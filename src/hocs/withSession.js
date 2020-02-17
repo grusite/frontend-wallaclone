@@ -1,6 +1,6 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import { getSession, getUser } from '../store/selectors'
+import { getSession, getUser } from '../store/selectors';
 import {
   userRegister,
   userVerifyRegister,
@@ -8,15 +8,17 @@ import {
   userForgotPassword,
   userChangePassword,
   userTraditionalLogin,
+  userGoogleLogin,
+  userFacebookLogin,
   getUserRequest,
-  userLogout,
-} from '../store/actions'
+  userLogout
+} from '../store/actions';
 
 const mapStateToProps = state => ({
   ...state,
   user: getUser(state),
-  session: getSession(state),
-})
+  session: getSession(state)
+});
 
 const mapDispatchToProps = {
   userRegister,
@@ -25,8 +27,10 @@ const mapDispatchToProps = {
   userForgotPassword,
   userChangePassword,
   userTraditionalLogin,
+  userGoogleLogin,
+  userFacebookLogin,
   getUserRequest,
-  userLogout,
-}
+  userLogout
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)
+export default connect(mapStateToProps, mapDispatchToProps);
