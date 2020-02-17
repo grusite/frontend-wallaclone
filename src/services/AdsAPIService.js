@@ -1,4 +1,4 @@
-import client from '../utils/client';
+import client from '../utils/client'
 
 export const traditionalLogin = async payload => {
   return await client({
@@ -8,11 +8,11 @@ export const traditionalLogin = async payload => {
       provider: 'traditional',
       payload: {
         email: payload.email,
-        password: payload.password
-      }
-    }
-  });
-};
+        password: payload.password,
+      },
+    },
+  })
+}
 
 export const googleLogin = async payload => {
   return await client({
@@ -20,23 +20,25 @@ export const googleLogin = async payload => {
     url: '/user/login',
     data: {
       provider: 'google',
-      payload: payload.idToken
-    }
-  });
-};
+      payload: {
+        idToken: payload.idToken,
+      },
+    },
+  })
+}
 
 export const facebookLogin = async payload => {
   return await client({
     method: 'post',
     url: '/user/login',
     data: {
-      provider: 'login',
+      provider: 'facebook',
       payload: {
-        accessToken: payload.accessToken
-      }
-    }
-  });
-};
+        accessToken: payload.accessToken,
+      },
+    },
+  })
+}
 
 export const register = async payload => {
   return await client({
@@ -45,20 +47,20 @@ export const register = async payload => {
     data: {
       name: payload.name,
       email: payload.email,
-      password: payload.password
-    }
-  });
-};
+      password: payload.password,
+    },
+  })
+}
 
 export const verifyRegister = async payload => {
   return await client({
     method: 'post',
     url: '/user/register/verify',
     data: {
-      token: payload.token
-    }
-  });
-};
+      token: payload.token,
+    },
+  })
+}
 
 export const verifyResendRegister = async payload => {
   return await client({
@@ -66,20 +68,20 @@ export const verifyResendRegister = async payload => {
     url: '/user/register/verify-resend',
     data: {
       email: payload.email,
-      password: payload.password
-    }
-  });
-};
+      password: payload.password,
+    },
+  })
+}
 
 export const forgotPassword = async payload => {
   return await client({
     method: 'post',
     url: '/user/register/forgot-password',
     data: {
-      email: payload.email
-    }
-  });
-};
+      email: payload.email,
+    },
+  })
+}
 
 export const changePassword = async payload => {
   return await client({
@@ -87,58 +89,58 @@ export const changePassword = async payload => {
     url: '/user/register/change-password',
     data: {
       token: payload.token,
-      password: payload.password
-    }
-  });
-};
+      password: payload.password,
+    },
+  })
+}
 
 export const getUser = async () => {
   return await client({
     method: 'get',
-    url: '/user'
-  });
-};
+    url: '/user',
+  })
+}
 
 export const getAdverts = async () => {
   return await client({
     method: 'get',
-    url: '/apiv1/anuncios/'
-  });
-};
+    url: '/apiv1/anuncios/',
+  })
+}
 
 export const getAdvertById = async id => {
   return await client({
     method: 'get',
-    url: `/apiv1/anuncios/${id}`
-  });
-};
+    url: `/apiv1/anuncios/${id}`,
+  })
+}
 
 export const filterAdverts = async params => {
   return await client({
     method: 'get',
-    url: `/apiv1/anuncios?${params}`
-  });
-};
+    url: `/apiv1/anuncios?${params}`,
+  })
+}
 
 export const getTags = async () => {
   return await client({
     method: 'get',
-    url: '/apiv1/anuncios/tags'
-  });
-};
+    url: '/apiv1/anuncios/tags',
+  })
+}
 
 export const createAd = async advert => {
   return await client({
     method: 'post',
     url: '/apiv1/anuncios',
-    data: advert
-  });
-};
+    data: advert,
+  })
+}
 
 export const updateAd = async (advert, id) => {
   return await client({
     method: 'put',
     url: `/apiv1/anuncios/${id}`,
-    data: advert
-  });
-};
+    data: advert,
+  })
+}

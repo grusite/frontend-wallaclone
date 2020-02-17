@@ -1,38 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import IconButton from '@material-ui/core/IconButton';
-import InputLabel from '@material-ui/core/InputLabel';
-import Visibility from '@material-ui/icons/Visibility';
-import FormControl from '@material-ui/core/FormControl';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  FacebookLoginButton,
-  GoogleLoginButton
-} from 'react-social-login-buttons';
-// import FacebookLoginButton from './FacebookLoginButton';
-// import GoogleLoginButton from './GoogleLoginButton';
-import GoogleLogin from 'react-google-login';
-// import FacebookLogin from 'react-facebook-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
-import { facebookId, googleId } from '../../parameters';
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import TextField from '@material-ui/core/TextField'
+import OutlinedInput from '@material-ui/core/OutlinedInput'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import IconButton from '@material-ui/core/IconButton'
+import InputLabel from '@material-ui/core/InputLabel'
+import Visibility from '@material-ui/icons/Visibility'
+import FormControl from '@material-ui/core/FormControl'
+import VisibilityOff from '@material-ui/icons/VisibilityOff'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import Typography from '@material-ui/core/Typography'
+import Link from '@material-ui/core/Link'
+import Checkbox from '@material-ui/core/Checkbox'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { makeStyles } from '@material-ui/core/styles'
+import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons'
+import GoogleLogin from 'react-google-login'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { facebookId, googleId } from '../../parameters'
 
-import Form, { Input } from '../Form';
+import Form, { Input } from '../Form'
 
 // import './login.css'
 
@@ -46,44 +40,42 @@ function Copyright() {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  );
+  )
 }
 
 const useStyles = makeStyles(theme => ({
   root: {
-    height: '100vh'
+    height: '100vh',
   },
   image: {
     backgroundImage: 'url(wallaclone-1300x650.png)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
-      theme.palette.type === 'dark'
-        ? theme.palette.grey[900]
-        : theme.palette.grey[50],
+      theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
   },
   paper: {
     margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(3, 0, 2),
   },
   margin: {
-    margin: theme.spacing(1)
-  }
-}));
+    margin: theme.spacing(1),
+  },
+}))
 
 export default function Login({
   t,
@@ -92,12 +84,12 @@ export default function Login({
   enqueueSnackbar,
   userTraditionalLogin,
   userFacebookLogin,
-  userGoogleLogin
+  userGoogleLogin,
 }) {
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const [showPassword, setShowPassword] = useState(false);
-  const { error, status } = ui;
+  const [showPassword, setShowPassword] = useState(false)
+  const { error, status } = ui
 
   /* eslint-disable*/
   // Error control
@@ -107,11 +99,11 @@ export default function Login({
         variant: 'success',
         anchorOrigin: {
           vertical: 'bottom',
-          horizontal: 'center'
-        }
-      });
+          horizontal: 'center',
+        },
+      })
     }
-  }, [status]);
+  }, [status])
 
   /* eslint-disable*/
   useEffect(() => {
@@ -122,81 +114,75 @@ export default function Login({
             variant: 'error',
             anchorOrigin: {
               vertical: 'bottom',
-              horizontal: 'right'
-            }
-          });
+              horizontal: 'right',
+            },
+          })
         } else if (error.data.reason === 'userNotFound') {
           enqueueSnackbar(t('userNotFound'), {
             variant: 'error',
             anchorOrigin: {
               vertical: 'bottom',
-              horizontal: 'right'
-            }
-          });
+              horizontal: 'right',
+            },
+          })
         } else if (error.data.reason === 'invalidPassword') {
           enqueueSnackbar(t('invalidPassword'), {
             variant: 'error',
             anchorOrigin: {
               vertical: 'bottom',
-              horizontal: 'right'
-            }
-          });
+              horizontal: 'right',
+            },
+          })
         } else if (error.data) {
           enqueueSnackbar(t('genericError'), {
             variant: 'error',
             anchorOrigin: {
               vertical: 'bottom',
-              horizontal: 'right'
-            }
-          });
+              horizontal: 'right',
+            },
+          })
         }
       }
     }
-  }, [error]);
+  }, [error])
 
   const goToRegister = event => {
-    event.preventDefault();
-    history.push('/register');
-  };
+    event.preventDefault()
+    history.push('/register')
+  }
 
   const goToForgotPassword = event => {
-    event.preventDefault();
-    history.push('/forgot-password');
-  };
+    event.preventDefault()
+    history.push('/forgot-password')
+  }
 
   const goToResendEmail = async event => {
-    event.preventDefault();
-    history.push('/resend-email');
-  };
+    event.preventDefault()
+    history.push('/resend-email')
+  }
 
   const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   const handleMouseDownPassword = event => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
-  const responseGoogle = response => {
-    console.log(response);
-  };
+  const responseGoogle = ({ tokenId }) => {
+    // console.log(response)
+    userGoogleLogin(tokenId, true)
+  }
 
-  const onClickGoogle = event => {
-    event.preventDefault();
-  };
-
-  const onClickFacebook = () => {
-    console.log('Clicked!');
-  };
-
-  const responseFacebook = response => {
-    console.log(response);
-  };
+  const responseFacebook = ({ accessToken }) => {
+    // console.log(response)
+    userFacebookLogin(accessToken, true)
+  }
 
   const handleSubmit = async event => {
-    const { email, password, remindMe } = event;
-    await userTraditionalLogin(email, password, remindMe);
-  };
+    const { email, password, remindMe } = event
+    await userTraditionalLogin(email, password, remindMe)
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -215,13 +201,13 @@ export default function Login({
             noValidate
             validate={({ email, password }) => {
               if (!email || !password) {
-                return t('fillAllFieldsMessage');
+                return t('fillAllFieldsMessage')
               }
             }}
             initialValue={{
               email: '',
               password: '',
-              remindMe: false
+              remindMe: false,
             }}
             onSubmit={handleSubmit}
             onError={error =>
@@ -229,8 +215,8 @@ export default function Login({
                 variant: 'warning',
                 anchorOrigin: {
                   vertical: 'bottom',
-                  horizontal: 'right'
-                }
+                  horizontal: 'right',
+                },
               })
             }
           >
@@ -247,9 +233,7 @@ export default function Login({
               component={TextField}
             />
             <FormControl required fullWidth margin="normal" variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                {t('labelPassword')}
-              </InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password">{t('labelPassword')}</InputLabel>
               <Input
                 id="outlined-adornment-password"
                 type={showPassword ? 'text' : 'password'}
@@ -283,7 +267,7 @@ export default function Login({
                   appId={facebookId}
                   fields="name,email,picture"
                   render={renderProps => (
-                    <FacebookLoginButton onClick={renderProps.onClick}>
+                    <FacebookLoginButton type="button" onClick={renderProps.onClick}>
                       <Typography variant="button">FACEBOOK</Typography>
                     </FacebookLoginButton>
                   )}
@@ -313,9 +297,7 @@ export default function Login({
               disabled={ui.isFetching}
             >
               {t('login')}
-              {ui.isFetching && (
-                <CircularProgress size={20} thickness={3.5} disableShrink />
-              )}
+              {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
             </Button>
           </Form>
           <Grid container>
@@ -340,5 +322,5 @@ export default function Login({
         </div>
       </Grid>
     </Grid>
-  );
+  )
 }

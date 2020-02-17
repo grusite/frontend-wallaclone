@@ -1,4 +1,7 @@
 {
+  
+  "facebookId": "",
+  "googleId": "",
   "gmapApiKey": "",
   "apiUrl": "http://localhost:8080"
 }
