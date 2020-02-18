@@ -89,7 +89,7 @@ export default function Login({
   const classes = useStyles()
 
   const [showPassword, setShowPassword] = useState(false)
-  const [provider, setProvider] = useState('')
+  const [isTraditional, setIsTraditional] = useState(false)
   const { error, status } = ui
 
   /* eslint-disable*/
@@ -169,7 +169,7 @@ export default function Login({
   }
 
   const onClickTraditional = () => {
-    setProvider('traditional')
+    setIsTraditional(true)
   }
 
   const responseGoogle = ({ tokenId }) => {
@@ -181,12 +181,6 @@ export default function Login({
   }
 
   const handleSubmit = async event => {
-    console.log('provider', prodiver)
-    if (!provider === 'traditional') {
-      console.log('noDefauuult')
-      event.preventDefault()
-      return
-    }
     const { email, password, remindMe } = event
     await userTraditionalLogin(email, password, remindMe)
   }
@@ -207,7 +201,7 @@ export default function Login({
             className={classes.form}
             noValidate
             validate={({ email, password }) => {
-              if (!email || !password) {
+              if (isTraditional && (!email || !password)) {
                 return t('fillAllFieldsMessage')
               }
             }}
@@ -275,7 +269,7 @@ export default function Login({
                   autoLoad={false}
                   fields="name,email,picture"
                   render={renderProps => (
-                    <FacebookLoginButton type="button" onClick={renderProps.onClick}>
+                    <FacebookLoginButton onClick={renderProps.onClick}>
                       <Typography variant="button">FACEBOOK</Typography>
                     </FacebookLoginButton>
                   )}

@@ -4,7 +4,7 @@ import './i18n'
 import { createBrowserHistory } from 'history'
 import { configureStore } from './store'
 import storage from './utils/storage'
-import { getUserRequest } from './store/actions'
+import { getUserRequest, resetUi } from './store/actions'
 import { isUserRegistered } from './store/selectors'
 import * as TYPES from './store/actionTypes'
 
@@ -41,6 +41,12 @@ store.subscribe(() => {
 
   if (lastAction.type === TYPES.LOGOUT) {
     localStorage.clear()
+  }
+  // I reset the UI after every redux call to be clean after redirection
+  if (lastAction.type.match(/_SUCCESS$/) || lastAction.type.match(/_FAILURE$/)) {
+    setTimeout(() => {
+      store.dispatch(resetUi())
+    }, 500)
   }
 })
 
