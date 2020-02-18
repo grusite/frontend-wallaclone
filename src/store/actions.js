@@ -1,4 +1,5 @@
 import * as TYPES from './actionTypes'
+
 import {
   register,
   verifyRegister,
@@ -29,9 +30,10 @@ export const callFailure = error => ({
   error,
 })
 
-export const saveSessionSuccess = (token, remindMe) => ({
+export const saveSessionSuccess = (token, provider, remindMe) => ({
   type: TYPES.SAVE_SESSION_SUCCESS,
   token,
+  provider,
   remindMe,
 })
 
@@ -150,12 +152,12 @@ export const userTraditionalLogin = (email, password, remindMe) => async (
   dispatch(callRequest())
   try {
     const res = await traditionalLogin({ email, password })
-    dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
+    dispatch(saveSessionSuccess(res.data.data.bearer, 'traditional', remindMe))
     setTimeout(() => {
       history.push('/')
     }, 1000)
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -163,12 +165,12 @@ export const userGoogleLogin = (idToken, remindMe) => async (dispatch, _getState
   dispatch(callRequest())
   try {
     const res = await googleLogin({ idToken })
-    dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
+    dispatch(saveSessionSuccess(res.data.data.bearer, 'google', remindMe))
     setTimeout(() => {
       history.push('/')
-    }, 2000)
+    }, 1000)
   } catch (error) {
-    dispatch(callFailure(error))
+    dispatch(callFailure(error.response.data.error))
   }
 }
 
@@ -180,10 +182,10 @@ export const userFacebookLogin = (accessToken, remindMe) => async (
   dispatch(callRequest())
   try {
     const res = await facebookLogin({ accessToken })
-    dispatch(saveSessionSuccess(res.data.data.bearer, remindMe))
+    dispatch(saveSessionSuccess(res.data.data.bearer, 'facebook', remindMe))
     setTimeout(() => {
       history.push('/')
-    }, 2000)
+    }, 1000)
   } catch (error) {
     dispatch(callFailure(error.response.data.error))
   }
@@ -200,6 +202,12 @@ export const getUserRequest = () => async dispatch => {
 }
 
 export const userLogout = (...args) => async (dispatch, _getState, { history }) => {
+  // If social provider I use manual javascript SDK to logOut
+  if (_getState().user.provider === 'google' && window.gapi) {
+    window.gapi.auth2.getAuthInstance().signOut()
+    window.gapi.auth2.getAuthInstance().disconnect()
+  }
+  if (_getState().user.provider === 'facebook' && window.FB) window.FB.logout()
   dispatch(logout())
   history.push('/login')
 }

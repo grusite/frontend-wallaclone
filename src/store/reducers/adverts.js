@@ -12,6 +12,8 @@ export default (state = defaultState, action) => {
     //   return Object.assign({}, state, action.advert);
     // case TYPES.ADVERTS_UPDATE_SUCCESS:
     //   return Object.assign({}, state, action.advert);
+    case TYPES.LOGOUT:
+      return defaultState
     default:
       return state
   }

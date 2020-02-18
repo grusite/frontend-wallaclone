@@ -1,3 +1,5 @@
+import { LOGOUT } from '../actionTypes'
+
 const defaultState = {
   isFetching: false,
   status: false,
@@ -24,6 +26,8 @@ export default (state = defaultState, action) => {
         status: false,
         error: action.error,
       })
+    case LOGOUT:
+      return defaultState
     default:
       return state
   }

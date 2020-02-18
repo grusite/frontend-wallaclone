@@ -89,6 +89,7 @@ export default function Login({
   const classes = useStyles()
 
   const [showPassword, setShowPassword] = useState(false)
+  const [provider, setProvider] = useState('')
   const { error, status } = ui
 
   /* eslint-disable*/
@@ -108,40 +109,38 @@ export default function Login({
   /* eslint-disable*/
   useEffect(() => {
     if (error) {
-      if (error.data) {
-        if (error.data.reason === 'userNotVerified') {
-          enqueueSnackbar(t('userNotVerified'), {
-            variant: 'error',
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'right',
-            },
-          })
-        } else if (error.data.reason === 'userNotFound') {
-          enqueueSnackbar(t('userNotFound'), {
-            variant: 'error',
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'right',
-            },
-          })
-        } else if (error.data.reason === 'invalidPassword') {
-          enqueueSnackbar(t('invalidPassword'), {
-            variant: 'error',
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'right',
-            },
-          })
-        } else if (error.data) {
-          enqueueSnackbar(t('genericError'), {
-            variant: 'error',
-            anchorOrigin: {
-              vertical: 'bottom',
-              horizontal: 'right',
-            },
-          })
-        }
+      if (error.data.reason === 'userNotVerified') {
+        enqueueSnackbar(t('userNotVerified'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
+      } else if (error.data.reason === 'userNotFound') {
+        enqueueSnackbar(t('userNotFound'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
+      } else if (error.data.reason === 'invalidPassword') {
+        enqueueSnackbar(t('invalidPassword'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
+      } else if (error.data) {
+        enqueueSnackbar(t('genericError'), {
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'right',
+          },
+        })
       }
     }
   }, [error])
@@ -169,17 +168,25 @@ export default function Login({
     event.preventDefault()
   }
 
+  const onClickTraditional = () => {
+    setProvider('traditional')
+  }
+
   const responseGoogle = ({ tokenId }) => {
-    // console.log(response)
     userGoogleLogin(tokenId, true)
   }
 
   const responseFacebook = ({ accessToken }) => {
-    // console.log(response)
     userFacebookLogin(accessToken, true)
   }
 
   const handleSubmit = async event => {
+    console.log('provider', prodiver)
+    if (!provider === 'traditional') {
+      console.log('noDefauuult')
+      event.preventDefault()
+      return
+    }
     const { email, password, remindMe } = event
     await userTraditionalLogin(email, password, remindMe)
   }
@@ -265,6 +272,7 @@ export default function Login({
               <Grid item xs={6}>
                 <FacebookLogin
                   appId={facebookId}
+                  autoLoad={false}
                   fields="name,email,picture"
                   render={renderProps => (
                     <FacebookLoginButton type="button" onClick={renderProps.onClick}>
@@ -272,6 +280,7 @@ export default function Login({
                     </FacebookLoginButton>
                   )}
                   callback={responseFacebook}
+                  onFailure={() => {}}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -283,13 +292,14 @@ export default function Login({
                     </GoogleLoginButton>
                   )}
                   onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
+                  onFailure={() => {}}
                 />
               </Grid>
             </Grid>
             <Button
               id="submit-no-material"
               type="submit"
+              onClick={onClickTraditional}
               className={classes.submit}
               fullWidth
               variant="contained"

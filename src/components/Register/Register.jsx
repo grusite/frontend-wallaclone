@@ -54,9 +54,10 @@ export default function Register({ t, ui, history, enqueueSnackbar, userRegister
     }
   }, [status])
 
-  // Error control
+  /* eslint-disable*/
   useEffect(() => {
     if (error) {
+      console.log('error', error)
       if (error.data.reason === 'registered') {
         enqueueSnackbar(t('userRegistered'), {
           variant: 'error',
