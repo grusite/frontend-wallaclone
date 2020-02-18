@@ -39,5 +39,9 @@
   "emailVerifiedSuccessful": "Your email has been verified",
   "returnToLogin": "Return to login",
   "back": "Go back",
-  "advertHeader": "You can see the detail of the selected advert"
+  "advertHeader": "You can see the detail of the selected advert",
+  "createAd": "Create your own advert",
+  "create": "Create",
+  "editAdvertHeader": "Edit the selected Advert",
+  "updateButton": "Update"
 }
