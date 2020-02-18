@@ -1,104 +1,110 @@
-import React from 'react'
+import React, { useState } from 'react';
 
-import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/CardHeader'
-import CardMedia from '@material-ui/core/CardMedia'
-import CardContent from '@material-ui/core/CardContent'
-import CardActions from '@material-ui/core/CardActions'
-import Avatar from '@material-ui/core/Avatar'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
-import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined'
-import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined'
-import Grid from '@material-ui/core/Grid'
-import EditIcon from '@material-ui/icons/Edit'
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
+import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
+import Grid from '@material-ui/core/Grid';
+import EditIcon from '@material-ui/icons/Edit';
 
-import './advert.css'
+import './advert.css';
 
-class Advert extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      advert: this.props.advert,
-    }
-  }
+export default function Advert({ advert, history }) {
+  const [imgUrl, setimgUrl] = useState(advert.picture);
+  const formattedDate = new Date(advert.createdAt).toDateString();
 
-  goToDetail = () => {
-    this.props.history.push(`/advert/${this.state.advert._id}`)
-  }
+  if (imgUrl.startsWith('/images/adverts'))
+    setimgUrl(`http://localhost:8080${advert.picture}`);
 
-  goToUpdate = () => {
-    this.props.history.push(`/update/${this.state.advert._id}`)
-  }
+  const goToDetail = () => {
+    history.push(`/advert/${advert._id}`);
+  };
 
-  render() {
-    const { advert } = this.state
+  const goToUpdate = () => {
+    history.push(`/update/${advert._id}`);
+  };
 
-    let avatar
-    let imgUrl = advert.picture
+  // const avatar = (
+  //   <Avatar id="avatar-green-no-material" aria-label="adv" className="avatar">
+  //     <ShoppingBasketOutlinedIcon />
+  //   </Avatar>
+  // );
 
-    if (advert.type === 'buy') {
-      avatar = (
-        <Avatar id="avatar-green-no-material" aria-label="adv" className="avatar">
+  const avatar = type => {
+    if (type === 'buy') {
+      return (
+        <Avatar
+          id="avatar-green-no-material"
+          aria-label="adv"
+          className="avatar"
+        >
           <ShoppingBasketOutlinedIcon />
         </Avatar>
-      )
-    } else if (advert.type === 'sell') {
-      avatar = (
+      );
+    } else if (type === 'sell') {
+      return (
         <Avatar id="avatar-no-material" aria-label="adv" className="avatar">
           <AttachMoneyOutlinedIcon />
         </Avatar>
-      )
+      );
     }
+  };
 
-    if (imgUrl.startsWith('/images/adverts')) imgUrl = `http://localhost:8080${advert.picture}`
-    return (
-      <>
-        <Grid item id="item-no-material" className="card-item">
-          <Card className="card">
-            <CardHeader
-              avatar={avatar}
-              title={advert.name}
-              action={
-                <IconButton onClick={this.goToUpdate} aria-label="settings">
-                  <EditIcon />
-                </IconButton>
-              }
-              subheader="October 13, 2019"
-            />
-            <CardMedia
-              className="media"
-              image={imgUrl}
-              title={advert.name}
-              onClick={this.goToDetail}
-            />
-            <CardContent onClick={this.goToDetail}>
-              <Typography id="card-description" variant="body2" color="textSecondary" component="p">
-                {advert.description}
-              </Typography>
-              <Typography id="card-price" variant="h5" component="p">
-                {advert.price} €
-              </Typography>
-            </CardContent>
-            <CardActions disableSpacing onClick={this.goToDetail}>
-              {advert.tags.map(tag => (
-                <Button
-                  key={tag}
-                  variant="outlined"
-                  id="button-no-material"
-                  disabled
-                  className="button"
-                >
-                  {tag}
-                </Button>
-              ))}
-            </CardActions>
-          </Card>
-        </Grid>
-      </>
-    )
-  }
+  return (
+    <>
+      <Grid item id="item-no-material" className="card-item">
+        <Card className="card">
+          <CardHeader
+            avatar={avatar(advert.type)}
+            title={advert.name}
+            action={
+              <IconButton onClick={goToUpdate} aria-label="settings">
+                <EditIcon />
+              </IconButton>
+            }
+            subheader={formattedDate}
+          />
+          <CardMedia
+            className="media"
+            image={imgUrl}
+            title={advert.name}
+            onClick={goToDetail}
+          />
+          <CardContent onClick={goToDetail}>
+            <Typography
+              id="card-description"
+              variant="body2"
+              color="textSecondary"
+              component="p"
+            >
+              {advert.description}
+            </Typography>
+            <Typography id="card-price" variant="h5" component="p">
+              {advert.price} €
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing onClick={goToDetail}>
+            {advert.tags.map(tag => (
+              <Button
+                key={tag}
+                variant="outlined"
+                id="button-no-material"
+                disabled
+                className="button"
+              >
+                {tag}
+              </Button>
+            ))}
+          </CardActions>
+        </Card>
+      </Grid>
+    </>
+  );
 }
-
-export default Advert

@@ -37,5 +37,7 @@
   "passwordChangedSuccessful": "Your password has been changed",
   "emailSentSuccessful": "Email sent successfully",
   "emailVerifiedSuccessful": "Your email has been verified",
-  "returnToLogin": "Return to login"
+  "returnToLogin": "Return to login",
+  "back": "Go back",
+  "advertHeader": "You can see the detail of the selected advert"
 }

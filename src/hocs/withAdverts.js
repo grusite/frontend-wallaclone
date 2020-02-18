@@ -1,20 +1,23 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-import { getAdverts, getAdvert, getUpdatedAdvert, getCreatedAdvert } from '../store/selectors'
-import { fetchAdverts, fetchAdvertById, updateAdvert, createAdvert } from '../store/actions'
+import { getAdverts, getAdvert } from '../store/selectors';
+import {
+  fetchAdverts,
+  fetchAdvertById,
+  updateAdvert,
+  createAdvert
+} from '../store/actions';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   adverts: getAdverts(state),
-  advert: getAdvert(state),
-  advertUpdated: getUpdatedAdvert(state),
-  advertCreated: getCreatedAdvert(state),
-})
+  advert: getAdvert(state)(ownProps.match.params.id)
+});
 
 const mapDispatchToProps = {
   fetchAdverts,
   fetchAdvertById,
   updateAdvert,
-  createAdvert,
-}
+  createAdvert
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)
+export default connect(mapStateToProps, mapDispatchToProps);
