@@ -20,6 +20,7 @@ import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Paper from '@material-ui/core/Paper'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Divider from '@material-ui/core/Divider'
 import { makeStyles } from '@material-ui/core/styles'
 import { FacebookLoginButton, GoogleLoginButton } from 'react-social-login-buttons'
 import GoogleLogin from 'react-google-login'
@@ -145,6 +146,16 @@ export default function Login({
     }
   }, [error])
 
+  const ColoredLine = ({ color }) => (
+    <hr
+      style={{
+        color: color,
+        backgroundColor: color,
+        height: 5,
+      }}
+    />
+  )
+
   const goToRegister = event => {
     event.preventDefault()
     history.push('/register')
@@ -262,34 +273,6 @@ export default function Login({
               label={t('remindMe')}
               component={FormControlLabel}
             />
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <FacebookLogin
-                  appId={facebookId}
-                  autoLoad={false}
-                  fields="name,email,picture"
-                  render={renderProps => (
-                    <FacebookLoginButton onClick={renderProps.onClick}>
-                      <Typography variant="button">FACEBOOK</Typography>
-                    </FacebookLoginButton>
-                  )}
-                  callback={responseFacebook}
-                  onFailure={() => {}}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <GoogleLogin
-                  clientId={googleId}
-                  render={renderProps => (
-                    <GoogleLoginButton onClick={renderProps.onClick}>
-                      <Typography variant="button">GOOGLE</Typography>
-                    </GoogleLoginButton>
-                  )}
-                  onSuccess={responseGoogle}
-                  onFailure={() => {}}
-                />
-              </Grid>
-            </Grid>
             <Button
               id="submit-no-material"
               type="submit"
@@ -304,11 +287,40 @@ export default function Login({
               {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
             </Button>
           </Form>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <FacebookLogin
+                appId={facebookId}
+                autoLoad={false}
+                fields="name,email,picture"
+                render={renderProps => (
+                  <FacebookLoginButton onClick={renderProps.onClick}>
+                    <Typography variant="button">FACEBOOK</Typography>
+                  </FacebookLoginButton>
+                )}
+                callback={responseFacebook}
+                onFailure={() => {}}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <GoogleLogin
+                clientId={googleId}
+                render={renderProps => (
+                  <GoogleLoginButton onClick={renderProps.onClick}>
+                    <Typography variant="button">GOOGLE</Typography>
+                  </GoogleLoginButton>
+                )}
+                onSuccess={responseGoogle}
+                onFailure={() => {}}
+              />
+            </Grid>
+          </Grid>
           <Grid container>
             <Grid item xs>
               <Link onClick={goToForgotPassword} href="#" variant="body2">
                 {t('forgotPassword')}
               </Link>
+              <Divider />
               <Link onClick={goToResendEmail} href="#" variant="body2">
                 {t('resendEmail')}
               </Link>
