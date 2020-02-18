@@ -75,12 +75,12 @@ export const fetchAdvertSuccess = advert => ({
   advert,
 })
 
-export const resetUii = () => ({
+export const resetTheUi = () => ({
   type: TYPES.RESET_UI,
 })
 
 export const resetUi = () => async (dispatch, _getState, { history }) => {
-  dispatch(resetUii())
+  dispatch(resetTheUi())
 }
 
 export const userRegister = (name, email, password) => async (dispatch, _getState, { history }) => {

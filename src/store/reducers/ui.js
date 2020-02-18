@@ -28,8 +28,6 @@ export default (state = defaultState, action) => {
       })
     case RESET_UI || LOGOUT:
       return defaultState
-    // case LOGOUT:
-    //   return defaultState
     default:
       return state
   }
