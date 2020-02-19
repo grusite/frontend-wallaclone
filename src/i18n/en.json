@@ -1,8 +1,10 @@
 {
+  "welcomePage": "Welcome to Wallaclone, ",
   "register": "Register",
   "signUp": "Sign Up",
   "logIn": "Log In",
   "login": "Login",
+  "logout": "Logout",
   "labelFullName": "Full name",
   "labelName": "Name",
   "labelEmail": "Email Address",
@@ -50,5 +52,7 @@
   "buy": "Buy",
   "sell": "Sell",
   "price": "Price",
-  "pictureURL": "Insert your picture URL"
+  "pictureURL": "Insert your picture URL",
+  "profile": "Profile",
+  "userProfile": "User profile"
 }
