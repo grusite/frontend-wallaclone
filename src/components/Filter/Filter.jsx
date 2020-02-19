@@ -147,7 +147,6 @@ class Filter extends React.Component {
                         {tag}
                       </option>
                     ))}
-                    {/* <option value={tags[0]}>{tags[0]}</option> */}
                     ))}
                   </Select>
                 </FormControl>

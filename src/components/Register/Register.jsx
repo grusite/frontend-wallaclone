@@ -146,7 +146,7 @@ export default function Register({ t, ui, history, enqueueSnackbar, userRegister
                 required
                 fullWidth
                 id="name"
-                label={t('labelName')}
+                label={t('labelFullName')}
                 autoFocus
                 component={TextField}
               />

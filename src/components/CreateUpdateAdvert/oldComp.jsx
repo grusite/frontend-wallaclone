@@ -261,3 +261,166 @@
 // }
 
 // export default createUpdateAdvert;
+
+// return (
+//     <>
+//       <NavBar />
+//       <Container component="main" maxWidth="xs">
+//         <CssBaseline />
+//         <div className="paper">
+//           <Avatar id="avatar-no-material" className="avatar">
+//             <ArtTrackIcon />
+//           </Avatar>
+//           <Typography variant="h6" gutterBottom>
+//             {comeFromUpdate() ? t('editAdvertHeader') : t('createAd')}
+//           </Typography>
+//           <Form
+//             className="form"
+//             noValidate
+//             validate={({ name, price, picture, tags }) => {
+//               if (!name || !price || !picture || !tags) {
+//                 return t('fillAllFieldsMessage')
+//               }
+//             }}
+//             initialValue={initialState}
+//             onSubmit={handleSubmit}
+//             onError={error =>
+//               enqueueSnackbar(error, {
+//                 variant: 'warning',
+//                 anchorOrigin: {
+//                   vertical: 'bottom',
+//                   horizontal: 'center',
+//                 },
+//               })
+//             }
+//           >
+//             <Grid container spacing={3}>
+//               <Grid item xs={12} container justify="space-around">
+//                 <FormGroup row>
+//                   <Input
+//                     control={
+//                       <Checkbox
+//                         icon={<ShoppingBasketOutlinedIcon />}
+//                         checkedIcon={<ShoppingBasketIcon />}
+//                         value="buy"
+//                         checked={selectedAdvert.type === 'buy'}
+//                       />
+//                     }
+//                     label={t('buy')}
+//                     name="type"
+//                     component={FormControlLabel}
+//                   />
+//                   <Input
+//                     control={
+//                       <Checkbox
+//                         icon={<ShoppingBasketOutlinedIcon />}
+//                         checkedIcon={<ShoppingBasketIcon />}
+//                         value="sell"
+//                         checked={selectedAdvert.type === 'sell'}
+//                       />
+//                     }
+//                     label={t('sell')}
+//                     name="type"
+//                     component={FormControlLabel}
+//                   />
+//                 </FormGroup>
+//               </Grid>
+//             </Grid>
+//             <Grid item xs={12}>
+//               <Input
+//                 name="name"
+//                 variant="outlined"
+//                 required
+//                 fullWidth
+//                 id="name"
+//                 label={t('labelName')}
+//                 autoFocus
+//                 value={selectedAdvert.name}
+//                 component={TextField}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <Input
+//                 name="description"
+//                 variant="outlined"
+//                 required
+//                 fullWidth
+//                 autoComplete="desc"
+//                 id="description"
+//                 label={t('description')}
+//                 autoFocus
+//                 value={selectedAdvert.description}
+//                 component={TextField}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <FormControl fullWidth>
+//                 <InputLabel required htmlFor="adornment-amount">
+//                   {t('price')}
+//                 </InputLabel>
+//                 <MaterialInput
+//                   id="adornment-amount"
+//                   value={selectedAdvert.price}
+//                   name="price"
+//                   onChange={handleChange}
+//                   startAdornment={<InputAdornment position="start">€</InputAdornment>}
+//                 />
+//               </FormControl>
+//             </Grid>
+
+//             <Grid item xs={12}>
+//               <Input
+//                 name="picture"
+//                 variant="outlined"
+//                 required
+//                 fullWidth
+//                 id="picture"
+//                 autoComplete="url picture"
+//                 label={t('pictureURL')}
+//                 value={selectedAdvert.picture}
+//                 autoFocus
+//                 component={TextField}
+//               />
+//             </Grid>
+//             <Grid item xs={12}>
+//               <FormControl fullWidth>
+//                 <InputLabel required htmlFor="select-multiple-checkbox">
+//                   {t('tags')}
+//                 </InputLabel>
+//                 <MaterialInput
+//                   multiple
+//                   value={selectedAdvert.tags}
+//                   name="tags"
+//                   input={<Input id="select-multiple-checkbox" />}
+//                   renderValue={selected => selected.join(', ')}
+//                 >
+//                   {tags.map(tag => (
+//                     <MenuItem key={tag} value={tag}>
+//                       <Checkbox checked={tags.indexOf(tag) > -1} />
+//                       <ListItemText primary={tag} />
+//                     </MenuItem>
+//                   ))}
+//                 </MaterialInput>
+//               </FormControl>
+//             </Grid>
+//             <Grid item xs={12} container justify="space-around">
+//               <Button
+//                 type="submit"
+//                 className="submit"
+//                 variant="contained"
+//                 color="primary"
+//                 disabled={ui.isFetching}
+//               >
+//                 {comeFromUpdate() ? t('updateButton') : t('create')}
+//                 {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
+//               </Button>
+//               <Button variant="contained" className="submit" color="primary" onClick={resetForm}>
+//                 {t('reset')}
+//               </Button>
+//             </Grid>
+//           </Form>
+//         </div>
+//       </Container>
+//     </>
+//   )
+// }

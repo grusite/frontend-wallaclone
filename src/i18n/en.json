@@ -3,7 +3,8 @@
   "signUp": "Sign Up",
   "logIn": "Log In",
   "login": "Login",
-  "labelName": "Full name",
+  "labelFullName": "Full name",
+  "labelName": "Name",
   "labelEmail": "Email Address",
   "labelPassword": "Password",
   "labelConfirmPassword": "Confirm password",
@@ -43,5 +44,11 @@
   "createAd": "Create your own advert",
   "create": "Create",
   "editAdvertHeader": "Edit the selected Advert",
-  "updateButton": "Update"
+  "updateButton": "Update",
+  "reset": "Reset",
+  "tags": "Tags",
+  "buy": "Buy",
+  "sell": "Sell",
+  "price": "Price",
+  "pictureURL": "Insert your picture URL"
 }

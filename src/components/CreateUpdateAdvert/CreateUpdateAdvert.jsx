@@ -1,30 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react'
 
-import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import ListItemText from '@material-ui/core/ListItemText';
-import Select from '@material-ui/core/Select';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Grid from '@material-ui/core/Grid'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined'
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined'
+import Input from '@material-ui/core/Input'
+import Avatar from '@material-ui/core/Avatar'
+import ArtTrackIcon from '@material-ui/icons/ArtTrack'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import ListItemText from '@material-ui/core/ListItemText'
+import Select from '@material-ui/core/Select'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-import NavBar from '../Navbar';
+import NavBar from '../Navbar'
+// import Form, { Input } from '../Form'
 
-import './createUpdateAdvert.css';
+import './createUpdateAdvert.css'
 
-export default function createUpdateAdvert({
+const initialState = {
+  type: 'buy',
+  name: '',
+  description: '',
+  price: 0,
+  picture: '',
+  tags: [],
+}
+
+export default function CreateUpdateAdvert({
+  t,
   tags,
   history,
   ui,
@@ -32,63 +46,41 @@ export default function createUpdateAdvert({
   match,
   advert,
   updateAdvert,
-  createAdvert
+  createAdvert,
 }) {
-  const initialState = {
-    advert: {
-      type: 'buy',
-      name: '',
-      description: '',
-      price: 0,
-      picture: '',
-      tags: []
-    },
-    ui: {
-      isFetching: true,
-      error: ''
-    },
-    allTags: [],
-    success: false,
-    error: false,
-    infoMessage: false
-  };
+  const selectedAdvert = advert ? advert : initialState
+  const [value, setValue] = useState(selectedAdvert)
+  console.log('value', value)
+  console.log('selectedAdvert', selectedAdvert)
+  // const [selectedAdvert, setSelectedAdvert] = advert ? useState(advert) : useState(initialState)
 
-  const [initState, setInitState] = useState(initialState);
+  const handleChange = useCallback(change => {
+    setValue(prevValue => ({
+      ...prevValue,
+      ...change,
+    }))
+  }, [])
+
+  // const handleChange = event => {
+  //   // setValue(event.target.value)
+  // }
 
   const comeFromUpdate = () => {
-    return match.url.match(/^(\/update\/)(\w+$)/g);
-  };
+    return match.url.match(/^(\/update\/)(\w+$)/g)
+  }
 
   const resetForm = () => {
-    this.setState(initialState);
-  };
+    // setSelectedAdvert(initialState)
+  }
 
-  const handleSubmit = async () => {
-    const { id, ...adContent } = advert;
-
-    if (this.comeFromUpdate()) {
-      // const id = match.params.id
-      await updateAdvert(adContent, id);
+  const handleSubmit = event => {
+    if (comeFromUpdate()) {
+      const { _id, ...adContent } = value
+      updateAdvert(adContent, _id)
     } else {
-      await createAdvert(adContent);
+      const { name } = event
+      createAdvert(name)
     }
-  };
-
-  let title = (
-    <Typography variant="h6" gutterBottom>
-      {t('createAd')}
-    </Typography>
-  );
-
-  let buttonText = t('create');
-
-  if (comeFromUpdate()) {
-    title = (
-      <Typography variant="h6" gutterBottom>
-        {t('editAdvertHeader')}
-      </Typography>
-    );
-    buttonText = t('updateButton');
   }
 
   return (
@@ -97,7 +89,12 @@ export default function createUpdateAdvert({
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className="paper">
-          {title}
+          <Avatar id="avatar-no-material" className="avatar">
+            <ArtTrackIcon />
+          </Avatar>
+          <Typography variant="h6" gutterBottom>
+            {comeFromUpdate() ? t('editAdvertHeader') : t('createAd')}
+          </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} container justify="space-around">
               <FormGroup row>
@@ -108,11 +105,11 @@ export default function createUpdateAdvert({
                       checkedIcon={<ShoppingBasketIcon />}
                       value="buy"
                       name="type"
-                      onChange={this.handleChange}
-                      checked={type === 'buy'}
+                      onChange={handleChange}
+                      checked={value.type === 'buy'}
                     />
                   }
-                  label="Comprar"
+                  label={t('buy')}
                 />
                 <FormControlLabel
                   control={
@@ -121,11 +118,11 @@ export default function createUpdateAdvert({
                       checkedIcon={<AttachMoneyOutlinedIcon />}
                       value="sell"
                       name="type"
-                      onChange={this.handleChange}
-                      checked={type === 'sell'}
+                      onChange={handleChange}
+                      checked={value.type === 'sell'}
                     />
                   }
-                  label="Vender"
+                  label={t('sell')}
                 />
               </FormGroup>
             </Grid>
@@ -134,37 +131,35 @@ export default function createUpdateAdvert({
                 required
                 id="name"
                 name="name"
-                label="Nombre"
+                label={t('labelName')}
                 fullWidth
                 autoComplete="name"
-                value={name}
-                onChange={this.handleChange}
+                value={value.name}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 id="description"
                 name="description"
-                label="Descripción"
+                label={t('description')}
                 fullWidth
                 autoComplete="desc"
-                value={description}
-                onChange={this.handleChange}
+                value={value.description}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <InputLabel required htmlFor="adornment-amount">
-                  Precio
+                  {t('price')}
                 </InputLabel>
                 <Input
                   id="adornment-amount"
-                  value={price}
+                  value={value.price}
                   name="price"
-                  onChange={this.handleChange}
-                  startAdornment={
-                    <InputAdornment position="start">€</InputAdornment>
-                  }
+                  onChange={handleChange}
+                  startAdornment={<InputAdornment position="start">€</InputAdornment>}
                 />
               </FormControl>
             </Grid>
@@ -173,27 +168,27 @@ export default function createUpdateAdvert({
                 required
                 id="picture"
                 name="picture"
-                label="Inserte la url de la imagen"
+                label={t('pictureURL')}
                 fullWidth
                 autoComplete="url picture"
-                value={picture}
-                onChange={this.handleChange}
+                value={value.picture}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <InputLabel required htmlFor="select-multiple-checkbox">
-                  Tags
+                  {t('tags')}
                 </InputLabel>
                 <Select
                   multiple
-                  value={tags}
+                  value={value.tags}
                   name="tags"
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                   input={<Input id="select-multiple-checkbox" />}
                   renderValue={selected => selected.join(', ')}
                 >
-                  {allTags.map(tag => (
+                  {tags.map(tag => (
                     <MenuItem key={tag} value={tag}>
                       <Checkbox checked={tags.indexOf(tag) > -1} />
                       <ListItemText primary={tag} />
@@ -201,9 +196,6 @@ export default function createUpdateAdvert({
                   ))}
                 </Select>
               </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              {/* {statusMessage} */}
             </Grid>
           </Grid>
           <Grid item xs={12} container justify="space-around">
@@ -213,21 +205,18 @@ export default function createUpdateAdvert({
               className="submit"
               variant="contained"
               color="primary"
-              onClick={this.handleSubmit}
+              onClick={handleSubmit}
+              disabled={ui.isFetching}
             >
-              {buttonText}
+              {comeFromUpdate() ? t('updateButton') : t('create')}
+              {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
             </Button>
-            <Button
-              variant="contained"
-              id="submit-no-material"
-              color="primary"
-              onClick={this.resetForm}
-            >
-              Restaurar
+            <Button variant="contained" id="submit-no-material" color="primary" onClick={resetForm}>
+              {t('reset')}
             </Button>
           </Grid>
         </div>
       </Container>
     </>
-  );
+  )
 }
