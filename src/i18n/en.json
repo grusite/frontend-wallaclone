@@ -35,6 +35,7 @@
   "invalidToken": "The token provided is invalid",
   "genericError": "An error ocurred. Please try again",
   "sendEmail": "Send Email",
+  "successfull": "Successful",
   "loginSuccessful": "Login Successful",
   "registerSuccessful": "Email sent to your email. Please check your inbox.",
   "passwordChangedSuccessful": "Your password has been changed",

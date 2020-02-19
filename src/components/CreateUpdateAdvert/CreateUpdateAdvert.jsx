@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
-import Input from '@material-ui/core/Input';
-import Avatar from '@material-ui/core/Avatar';
-import ArtTrackIcon from '@material-ui/icons/ArtTrack';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import ListItemText from '@material-ui/core/ListItemText';
-import Select from '@material-ui/core/Select';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined';
-import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined'
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined'
+import Input from '@material-ui/core/Input'
+import Avatar from '@material-ui/core/Avatar'
+import ArtTrackIcon from '@material-ui/icons/ArtTrack'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import ListItemText from '@material-ui/core/ListItemText'
+import Select from '@material-ui/core/Select'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import ArrowBackIosOutlinedIcon from '@material-ui/icons/ArrowBackIosOutlined'
+import IconButton from '@material-ui/core/IconButton'
 
-import NavBar from '../Navbar';
+import NavBar from '../Navbar'
 
-import './createUpdateAdvert.css';
+import './createUpdateAdvert.css'
 
 const initialState = {
   type: 'buy',
@@ -35,8 +35,8 @@ const initialState = {
   description: '',
   price: 0,
   picture: '',
-  tags: []
-};
+  tags: [],
+}
 
 export default function CreateUpdateAdvert({
   t,
@@ -48,36 +48,67 @@ export default function CreateUpdateAdvert({
   advert,
   fetchAdverts,
   updateAdvert,
-  createAdvert
+  createAdvert,
 }) {
-  const selectedAdvert = advert ? advert : initialState;
-  const [value, setValue] = useState(selectedAdvert);
+  const selectedAdvert = advert ? advert : initialState
+  const [value, setValue] = useState(selectedAdvert)
+  const [submitted, setSubmitted] = useState(false)
+  const { error, status } = ui
+
+  /* eslint-disable*/
+  // Error control
+  useEffect(() => {
+    if (status && submitted) {
+      enqueueSnackbar(t('successfull'), {
+        variant: 'success',
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      })
+    }
+  }, [status])
+
+  /* eslint-disable*/
+  useEffect(() => {
+    if (error && error.data && submitted) {
+      enqueueSnackbar(t('genericError'), {
+        variant: 'error',
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center',
+        },
+      })
+    }
+  }, [error])
 
   const handleChange = event => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setValue(prevValue => {
-      return { ...prevValue, [name]: value };
-    });
-  };
+      return { ...prevValue, [name]: value }
+    })
+  }
 
   const comeFromUpdate = () => {
-    return match.url.match(/^(\/update\/)(\w+$)/g);
-  };
+    return match.url.match(/^(\/update\/)(\w+$)/g)
+  }
 
   const resetForm = () => {
-    setValue(initialState);
-  };
+    setValue(initialState)
+  }
 
   const handleSubmit = async event => {
-    event.preventDefault();
+    setSubmitted(true)
+    event.preventDefault()
     if (comeFromUpdate()) {
-      const { _id, __v, createdAt, updateAt, ...adContent } = value;
-      await updateAdvert(adContent, _id);
+      const { _id, __v, createdAt, updateAt, ...adContent } = value
+      await updateAdvert(adContent, _id)
     } else {
-      await createAdvert(value);
+      await createAdvert(value)
     }
-    await fetchAdverts();
-  };
+    setSubmitted(false)
+    await fetchAdverts()
+  }
 
   return (
     <>
@@ -155,9 +186,7 @@ export default function CreateUpdateAdvert({
                   value={value.price}
                   name="price"
                   onChange={handleChange}
-                  startAdornment={
-                    <InputAdornment position="start">€</InputAdornment>
-                  }
+                  startAdornment={<InputAdornment position="start">€</InputAdornment>}
                 />
               </FormControl>
             </Grid>
@@ -207,16 +236,9 @@ export default function CreateUpdateAdvert({
               disabled={ui.isFetching}
             >
               {comeFromUpdate() ? t('updateButton') : t('create')}
-              {ui.isFetching && (
-                <CircularProgress size={20} thickness={3.5} disableShrink />
-              )}
+              {ui.isFetching && <CircularProgress size={20} thickness={3.5} disableShrink />}
             </Button>
-            <Button
-              variant="contained"
-              id="submit-no-material"
-              color="primary"
-              onClick={resetForm}
-            >
+            <Button variant="contained" id="submit-no-material" color="primary" onClick={resetForm}>
               {t('reset')}
             </Button>
           </Grid>
@@ -225,7 +247,7 @@ export default function CreateUpdateAdvert({
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={() => {
-              history.push('/');
+              history.push('/')
             }}
             color="primary"
           >
@@ -234,5 +256,5 @@ export default function CreateUpdateAdvert({
         </div>
       </Container>
     </>
-  );
+  )
 }

@@ -101,7 +101,7 @@ export default function Login({
         variant: 'success',
         anchorOrigin: {
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'rigth',
         },
       })
     }
@@ -145,16 +145,6 @@ export default function Login({
       }
     }
   }, [error])
-
-  const ColoredLine = ({ color }) => (
-    <hr
-      style={{
-        color: color,
-        backgroundColor: color,
-        height: 5,
-      }}
-    />
-  )
 
   const goToRegister = event => {
     event.preventDefault()
