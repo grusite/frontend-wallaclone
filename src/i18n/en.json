@@ -43,16 +43,20 @@
   "returnToLogin": "Return to login",
   "back": "Go back",
   "advertHeader": "You can see the detail of the selected advert",
+  "noAdvertsFound": "No adverts found",
+  "advertsAvailable": "You can see all available advertisements",
   "createAd": "Create your own advert",
   "create": "Create",
   "editAdvertHeader": "Edit the selected Advert",
   "updateButton": "Update",
   "reset": "Reset",
+  "filter": "Filter",
   "tags": "Tags",
   "buy": "Buy",
   "sell": "Sell",
   "price": "Price",
   "pictureURL": "Insert your picture URL",
   "profile": "Profile",
-  "userProfile": "User profile"
+  "userProfile": "User profile",
+  "advertFilter": "Adverts filter"
 }

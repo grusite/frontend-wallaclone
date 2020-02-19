@@ -1,4 +1,7 @@
-import Filter from "./Filter";
-import withTags from "../../hocs/withTags";
+import { withTranslation } from 'react-i18next'
 
-export default withTags(Filter);
+import { compose } from '../../utils/compose'
+import Filter from './Filter'
+import withTags from '../../hocs/withTags'
+
+export default compose(withTags, withTranslation())(Filter)

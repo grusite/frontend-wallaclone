@@ -1,57 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
-import NavBar from '../Navbar';
-import AdvertList from '../AdvertList';
-import Filter from '../Filter';
-import './home.css';
+import NavBar from '../Navbar'
+import AdvertList from '../AdvertList'
+import Filter from '../Filter'
+import './home.css'
 
-export default function Home({
-  getUserRequest,
-  adverts,
-  fetchAdverts,
-  tags,
-  user,
-  ui
-}) {
-  const [params, setParams] = useState('');
-
-  const [tagSelected, setTagSelected] = useState('');
+export default function Home({ getUserRequest, adverts, fetchAdverts, tags, user, ui }) {
+  const [params, setParams] = useState('')
 
   /* eslint-disable*/
   useEffect(() => {
-    fetchAdverts(params);
-  }, [params]);
+    fetchAdverts(params)
+  }, [params])
 
   const onFilterChange = state => {
-    let newParam = '';
+    let newParam = ''
     for (let param in state) {
       if (state[param] && state[param].length !== 0 && param !== 'tags') {
         if (param === 'tagSelected') {
-          setTagSelected(state[param]);
-          newParam += `&tag=${state[param]}`;
-          continue;
+          state[param].map(tag => {
+            newParam += `&tag[]=${tag}`
+          })
+          continue
         }
 
         // triquiñuela para que pueda filtrar en la api por sell or buy
         if (param === 'type') {
           if (state[param] === 'sell') {
-            newParam += `&venta=sell`;
-            continue;
+            newParam += `&type=sell`
+            continue
           }
-          newParam += `&venta=buy`;
-          continue;
+          newParam += `&type=buy`
+          continue
         }
-        newParam += `&${param}=${state[param]}`;
+        newParam += `&${param}=${state[param]}`
       }
     }
-    setParams(newParam);
-  };
+    setParams(newParam)
+  }
 
   return (
     <>
       <NavBar />
-      <Filter onFilterChange={onFilterChange} tagSelected={tagSelected} />
+      <Filter onFilterChange={onFilterChange} />
       {adverts && <AdvertList adverts={adverts} isFetching={ui.isFetching} />}
     </>
-  );
+  )
 }
