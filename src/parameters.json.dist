@@ -1,7 +1,5 @@
 {
-  
+  "apiUrl": "http://localhost:8080",
   "facebookId": "",
-  "googleId": "",
-  "gmapApiKey": "",
-  "apiUrl": "http://localhost:8080"
+  "googleId": ""
 }
