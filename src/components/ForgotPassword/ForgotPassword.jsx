@@ -49,7 +49,7 @@ export default function ForgotPassword({ t, enqueueSnackbar, ui, history, userFo
   // Error control
   useEffect(() => {
     if (error) {
-      if (error.data.reason === 'userNotFound') {
+      if (error.data && error.data.reason === 'userNotFound') {
         enqueueSnackbar(t('userNotFound'), {
           variant: 'error',
           anchorOrigin: {
@@ -57,7 +57,7 @@ export default function ForgotPassword({ t, enqueueSnackbar, ui, history, userFo
             horizontal: 'center',
           },
         })
-      } else if (error.data) {
+      } else {
         enqueueSnackbar(t('genericError'), {
           variant: 'error',
           anchorOrigin: {

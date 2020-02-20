@@ -63,7 +63,7 @@ export default function ChangePassword({
   // Error control
   useEffect(() => {
     if (error) {
-      if (error.data.reason === 'userNotFound') {
+      if (error.data && error.data.reason === 'userNotFound') {
         enqueueSnackbar(t('userNotFound'), {
           variant: 'error',
           anchorOrigin: {
@@ -71,7 +71,7 @@ export default function ChangePassword({
             horizontal: 'center',
           },
         })
-      } else if (error.data.reason === 'invalidforgotPasswordToken') {
+      } else if (error.data && error.data.reason === 'invalidforgotPasswordToken') {
         enqueueSnackbar(t('invalidToken'), {
           variant: 'error',
           anchorOrigin: {
@@ -79,7 +79,7 @@ export default function ChangePassword({
             horizontal: 'center',
           },
         })
-      } else if (error.data) {
+      } else {
         enqueueSnackbar(t('genericError'), {
           variant: 'error',
           anchorOrigin: {

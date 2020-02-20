@@ -71,7 +71,7 @@ export default function CreateUpdateAdvert({
 
   /* eslint-disable*/
   useEffect(() => {
-    if (error && error.data && submitted) {
+    if (error && submitted) {
       enqueueSnackbar(t('genericError'), {
         variant: 'error',
         anchorOrigin: {

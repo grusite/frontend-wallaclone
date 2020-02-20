@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { store } from '../'
 import { apiUrl } from '../parameters'
+// import { apiUrlDev } from '../parameters'
 import Debug from 'debug'
 import { userLogout } from '../store/actions'
 import { isUserRegistered } from '../store/selectors'
@@ -9,6 +10,7 @@ const debug = Debug('app:request')
 
 const request = axios.create({
   baseURL: apiUrl,
+  // baseURL: apiUrlDev,
   timeout: 10000,
 })
 

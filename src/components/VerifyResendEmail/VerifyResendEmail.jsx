@@ -63,7 +63,7 @@ export default function VerifyResendEmail({
   // Error control
   useEffect(() => {
     if (error) {
-      if (error.data.reason === 'userVerified') {
+      if (error.data && error.data.reason === 'userVerified') {
         enqueueSnackbar(t('userVerified'), {
           variant: 'error',
           anchorOrigin: {
@@ -71,7 +71,7 @@ export default function VerifyResendEmail({
             horizontal: 'center',
           },
         })
-      } else if (error.data.reason === 'userNotFound') {
+      } else if (error.data && error.data.reason === 'userNotFound') {
         enqueueSnackbar(t('userNotFound'), {
           variant: 'error',
           anchorOrigin: {
@@ -79,7 +79,7 @@ export default function VerifyResendEmail({
             horizontal: 'center',
           },
         })
-      } else if (error.data.reason === 'invalidPassword') {
+      } else if (error.data && error.data.reason === 'invalidPassword') {
         enqueueSnackbar(t('invalidPassword'), {
           variant: 'error',
           anchorOrigin: {
@@ -87,7 +87,7 @@ export default function VerifyResendEmail({
             horizontal: 'center',
           },
         })
-      } else if (error.data) {
+      } else {
         enqueueSnackbar(t('genericError'), {
           variant: 'error',
           anchorOrigin: {

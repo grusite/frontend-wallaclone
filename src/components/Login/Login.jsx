@@ -101,7 +101,7 @@ export default function Login({
         variant: 'success',
         anchorOrigin: {
           vertical: 'bottom',
-          horizontal: 'rigth',
+          horizontal: 'right',
         },
       })
     }
@@ -110,7 +110,7 @@ export default function Login({
   /* eslint-disable*/
   useEffect(() => {
     if (error) {
-      if (error.data.reason === 'userNotVerified') {
+      if (error.data && error.data.reason === 'userNotVerified') {
         enqueueSnackbar(t('userNotVerified'), {
           variant: 'error',
           anchorOrigin: {
@@ -118,7 +118,7 @@ export default function Login({
             horizontal: 'right',
           },
         })
-      } else if (error.data.reason === 'userNotFound') {
+      } else if (error.data && error.data.reason === 'userNotFound') {
         enqueueSnackbar(t('userNotFound'), {
           variant: 'error',
           anchorOrigin: {
@@ -126,7 +126,7 @@ export default function Login({
             horizontal: 'right',
           },
         })
-      } else if (error.data.reason === 'invalidPassword') {
+      } else if (error.data && error.data.reason === 'invalidPassword') {
         enqueueSnackbar(t('invalidPassword'), {
           variant: 'error',
           anchorOrigin: {
@@ -134,7 +134,7 @@ export default function Login({
             horizontal: 'right',
           },
         })
-      } else if (error.data) {
+      } else {
         enqueueSnackbar(t('genericError'), {
           variant: 'error',
           anchorOrigin: {
@@ -295,6 +295,7 @@ export default function Login({
             <Grid item xs={6}>
               <GoogleLogin
                 clientId={googleId}
+                autoLoad={false}
                 render={renderProps => (
                   <GoogleLoginButton onClick={renderProps.onClick}>
                     <Typography variant="button">GOOGLE</Typography>

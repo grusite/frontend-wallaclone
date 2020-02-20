@@ -199,6 +199,10 @@ export const userLogout = (...args) => async (dispatch, _getState, { history }) 
   // If social provider I use manual javascript SDK to logOut
   if (_getState().user.provider === 'google' && window.gapi) {
     // TODO meter botones de logout de FB o de GGL dependiendo del proveder en el frontal
+    // GET "https://www.facebook.com/x/oauth/logout?access_token="
+    // POST "https://accounts.google.com/o/oauth2/revoke" token=xx de body
+    // Check this apis to get both tokens using the id in the DB and make a logout in the DB
+    // Or better, check documentation of FB and OAuth2Client npm packages to get the tokens
     window.gapi.auth2.getAuthInstance().signOut()
     window.gapi.auth2.getAuthInstance().disconnect()
   }

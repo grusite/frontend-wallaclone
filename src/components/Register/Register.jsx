@@ -57,7 +57,7 @@ export default function Register({ t, ui, history, enqueueSnackbar, userRegister
   /* eslint-disable*/
   useEffect(() => {
     if (error) {
-      if (error.data.reason === 'registered') {
+      if (error.data && error.data.reason === 'registered') {
         enqueueSnackbar(t('userRegistered'), {
           variant: 'error',
           anchorOrigin: {
@@ -73,7 +73,7 @@ export default function Register({ t, ui, history, enqueueSnackbar, userRegister
             horizontal: 'center',
           },
         })
-      } else if (error.data) {
+      } else {
         enqueueSnackbar(t('genericError'), {
           variant: 'error',
           anchorOrigin: {
