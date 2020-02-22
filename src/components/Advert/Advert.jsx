@@ -14,14 +14,15 @@ import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined'
 import Grid from '@material-ui/core/Grid'
 import EditIcon from '@material-ui/icons/Edit'
 
+import { apiUrl } from '../../parameters'
+
 import './advert.css'
 
 export default function Advert({ advert, history }) {
   const [imgUrl, setimgUrl] = useState(advert.picture)
   const formattedDate = new Date(advert.createdAt).toDateString()
 
-  if (imgUrl.startsWith('/images/adverts'))
-    setimgUrl(`https://ancient-depths-90365.herokuapp.com/${advert.picture}`)
+  if (imgUrl.startsWith('/images/adverts')) setimgUrl(`${apiUrl}${advert.picture}`)
 
   const goToDetail = () => {
     history.push(`/advert/${advert._id}`)
