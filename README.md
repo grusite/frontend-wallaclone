@@ -1,6 +1,8 @@
-# NodePop
+# Wallaclone
 
-A React application that uses the [Nodepop API](https://github.com/IsmaelB83/keepcoding-backend-node) developed in Node.
+Final exercise of Bootcamp Web VII. It is accesible via [this URL](https://frontend-wallaclone.grusite.now.sh)
+
+It is a React application that uses the [Wallaclone API](https://github.com/grusite/backend-wallaclone.git) developed in Node.
 
 ## Available Scripts
 
@@ -26,31 +28,47 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-### Instructions
+### Additional info
 
-The web page seems intuitive, but just in case I will explain the functionality:
+I explain how the application works (architecture, tech used and functions) in the [next video](urlDrive).
 
-- The entry point is the register page.
-- Every route the user try to go, if not registered, will go directly to the register. If registered, will go to the home page.
-- Is user doesn't click in "Quiero mantener mi sesión activa" once refreshed the session will expire.
-- Once registration is done, it will load the list of adverts filtered with the tag given in the process.
-- The user can also filter the list by using the form given in the home.
-- Clicking in an advert the user will go into the advert detail.
-- The user can also create an advert from scratch by clicking in the button at the left side of the navbar.
-- Also, by clicking in the edit icon from the advert card, the user will be able to edit the same.
-- Additionally, the user can both logout and see profile by clicking in the user icon at the right side of the navbar.
-- In case you choose another path not known by the app, it will return you a 404 page.
+I haven't done all the features asked by the PO by lack of time. There is no public and private views, the only public views are those related to authentication, the rest are private.
 
-### Adding hooks, HOC, Render Props...
+I have focused on the authentication part (in both backend and frontend):
 
-- For this exercise I have added Redux in the whole app for managing both: the user info and the loaded adverts.
-- I have only refactored my Home component to add hooks (useState and useEffect).
-- As I used Material Ui for my application, and therefore I do not have inputs, so I did not see necesary to use HOCs or Render Props. I decided to use only Hooks.
+- Login
+  - Traditional
+  - Google sign in
+  - Facebook sign in
+- Register
+- Verify email
+- Resend verification email
+- Forgot password
+- Reset password
+- Logout
+
+Also, all the routes are protected but the links above (it redirects you to login if not authenticated). Also, if authenticated all routes from above redirects you to home.
+
+Once authenticated, the user would be able to see all his published advertisements, search adverts by some filters, get the detail of each advert, edit an advert and even create one. Also can see their prifle and log out.
+
+### Next features
+
+For next releases, I have planned to do the following fetures:
+
+- Create a public zone
+- Social Network sharing
+- Delete account
+- Update profile info
+- Create advers by users
+- Delete adverts
+- Mark adverts as sold/reserved/available
+- Add chat between users
+- Add and delete favs and list your favorites
+- Push notifications for your favs modification and for new chats
 
 ### Tests
 
-- I have placed the \*.test.js under the file to be tested.
-- I have decided to test all my actions, reducers and the Home component.
+- Due to the lack of time, I have decided to avoid test so far. I will do it afterwards.
 
 ## Author
 
