@@ -19,7 +19,7 @@ const renderAdverts = (t, adverts, isFetching) => {
   if (!isFetching && (!adverts || adverts.length === 0)) {
     return (
       <Grid container justify="center" alignItems="center" className="card-container">
-        <Typography variant="h5" component="h5">
+        <Typography className="text" variant="h5" component="h5">
           {t('noAdvertsFound')}
         </Typography>
       </Grid>
@@ -28,7 +28,7 @@ const renderAdverts = (t, adverts, isFetching) => {
   return (
     <>
       <Grid container justify="center" alignItems="center" className="card-container">
-        <Typography variant="h5" component="h5">
+        <Typography className="text" variant="h5" component="h5">
           {t('advertsAvailable')}
         </Typography>
       </Grid>

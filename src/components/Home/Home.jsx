@@ -5,12 +5,13 @@ import AdvertList from '../AdvertList'
 import Filter from '../Filter'
 import './home.css'
 
-export default function Home({ getUserRequest, adverts, fetchAdverts, tags, user, ui }) {
+export default function Home({ getUserRequest, adverts, fetchAdverts, loadTags, tags, user, ui }) {
   const [params, setParams] = useState('')
 
   /* eslint-disable*/
   useEffect(() => {
     fetchAdverts(params)
+    loadTags()
   }, [params])
 
   const onFilterChange = state => {

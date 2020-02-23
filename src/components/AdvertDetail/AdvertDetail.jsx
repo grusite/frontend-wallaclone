@@ -27,7 +27,7 @@ export default function AdvertDetail({ t, ui, advert, match, history }) {
       return (
         <>
           <Grid container justify="center" alignItems="center" className="card-container">
-            <Typography variant="h5" component="h5">
+            <Typography className="text" variant="h5" component="h5">
               {t('advertHeader')}
             </Typography>
           </Grid>

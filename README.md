@@ -32,9 +32,9 @@ Your app is ready to be deployed!
 
 I explain how the application works (architecture, tech used and functions) in the [next video](urlDrive).
 
-I haven't done all the features asked by the PO by lack of time. There is no public and private views, the only public views are those related to authentication, the rest are private.
+I haven't done all the features asked by the PO due to lack of time. There is no public and private views, the only public views are those related to authentication, the rest are private.
 
-I have focused on the authentication part (in both backend and frontend):
+I have focused on the <b>authentication</b> part (in both backend and frontend):
 
 - Login
   - Traditional
@@ -47,9 +47,13 @@ I have focused on the authentication part (in both backend and frontend):
 - Reset password
 - Logout
 
+\*Once authenticated, all the API calls will have the <b>Authentication header</b> setted with the token "Authentication: Bearer <token>"
+
 Also, all the routes are protected but the links above (it redirects you to login if not authenticated). Also, if authenticated all routes from above redirects you to home.
 
-Once authenticated, the user would be able to see all his published advertisements, search adverts by some filters, get the detail of each advert, edit an advert and even create one. Also can see their prifle and log out.
+Once logged in, the user would be able to see all his published advertisements, search adverts by some filters, get the detail of each advert, edit an advert and even create one. Also can see their profle and also can log out.
+
+\*The application is configured to use <b>i18</b> so all text are being traduced in the moment (using HOCs). As I only want english I did't create a language selector, but it's ready to do it.
 
 ### Next features
 
@@ -68,7 +72,13 @@ For next releases, I have planned to do the following fetures:
 
 ### Tests
 
-- Due to the lack of time, I have decided to avoid test so far. I will do it afterwards.
+Due to the lack of time, I have decided to avoid test so far. I will do it afterwards.
+
+### Deployment
+
+The deployment is done using [now.sh](https://zeit.co/) in the [https://frontend-wallaclone.grusite.now.sh](https://frontend-wallaclone.grusite.now.sh)
+
+To deploy just make changes in the code, commit and push to gitlab, and execute `now` (before `npm i -g now`). It will automatically deploy the code into the same URL.
 
 ## Author
 
