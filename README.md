@@ -47,7 +47,7 @@ I have focused on the <b>authentication</b> part (in both backend and frontend):
 - Reset password
 - Logout
 
-\*Once authenticated, all the API calls will have the <b>Authentication header</b> setted with the token "Authentication: Bearer <token>"
+\*Once authenticated, all the API calls will have the <b>Authentication header</b> setted with the token "Authentication: Bearer `<token>`"
 
 Also, all the routes are protected but the links above (it redirects you to login if not authenticated). Also, if authenticated all routes from above redirects you to home.
 
