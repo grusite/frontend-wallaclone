@@ -28,7 +28,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
-### Additional info
+## Additional info
 
 I explain how the application works (architecture, tech used and functions) in the [next video](urlDrive).
 
@@ -47,15 +47,17 @@ I have focused on the <b>authentication</b> part (in both backend and frontend):
 - Reset password
 - Logout
 
-\*Once authenticated, all the API calls will have the <b>Authentication header</b> setted with the token "Authentication: Bearer `<token>`"
+\*Once authenticated, all the API calls will have the Authentication header setted with the token
+
+### `Authentication: Bearer <token>`
 
 Also, all the routes are protected but the links above (it redirects you to login if not authenticated). Also, if authenticated all routes from above redirects you to home.
 
 Once logged in, the user would be able to see all his published advertisements, search adverts by some filters, get the detail of each advert, edit an advert and even create one. Also can see their profle and also can log out.
 
-\*The application is configured to use <b>i18</b> so all text are being traduced in the moment (using HOCs). As I only want english I did't create a language selector, but it's ready to do it.
+\*The application is configured to use <b>i18n</b> so all text are being traduced in the moment (using HOCs). As I only want english I did't create a language selector, but it's ready to do it.
 
-### Next features
+## Next features
 
 For next releases, I have planned to do the following fetures:
 
@@ -70,11 +72,11 @@ For next releases, I have planned to do the following fetures:
 - Add and delete favs and list your favorites
 - Push notifications for your favs modification and for new chats
 
-### Tests
+## Tests
 
 Due to the lack of time, I have decided to avoid test so far. I will do it afterwards.
 
-### Deployment
+## Deployment
 
 The deployment is done using [now.sh](https://zeit.co/) in the [https://frontend-wallaclone.grusite.now.sh](https://frontend-wallaclone.grusite.now.sh)
 
