@@ -4,6 +4,8 @@ Final exercise of Bootcamp Web VII. It is accesible via [this URL](https://front
 
 It is a React application that uses the [Wallaclone API](https://github.com/grusite/backend-wallaclone.git) developed in Node.
 
+\*\* <b>IMPORTANT NOTE</b> As the API Rest is deployed in Heroku, it automatically switch the server of, so the first time you make an API request (login for example), it redeploy the server, so please, do it, refresh the page, and the server should be up and running so you can work normally.
+
 ## Available Scripts
 
 In the project directory, you can run (after the `npm/yarn install` command):
